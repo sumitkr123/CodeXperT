@@ -64,21 +64,18 @@ export const CreateScreen = ({
         </View>
 
         <View style={CreateStyle(theme).contentStyle}>
-          <FlatList
-            data={AllFormInputs}
-            renderItem={items => {
-              return (
-                <FormInput
-                  key={items.item.id}
-                  theme={items.item.theme}
-                  icon={items.item.icon}
-                  type={items.item.type}
-                  label={items.item.label}
-                  placeholder={items.item.placeholder}
-                />
-              );
-            }}
-          />
+          {AllFormInputs.map(item => {
+            return (
+              <FormInput
+                key={item.id}
+                theme={item.theme}
+                icon={item.icon}
+                type={item.type}
+                label={item.label}
+                placeholder={item.placeholder}
+              />
+            );
+          })}
         </View>
       </ScrollView>
     </SafeAreaView>

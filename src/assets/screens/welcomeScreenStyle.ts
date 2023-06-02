@@ -1,16 +1,17 @@
 import {StyleSheet} from 'react-native';
+import {Theme} from '../../models/themeTypes';
 
-export const WelcomeStyle = (theme: string | null | undefined) =>
+export const WelcomeStyle = (theme: Theme) =>
   StyleSheet.create({
     welcomeText: {
       fontWeight: 'bold',
       fontSize: 20,
-      color: theme === 'dark' ? 'white' : 'black',
+      color: theme.text,
     },
     continueButton: {
       justifyContent: 'center',
       alignItems: 'center',
-      backgroundColor: 'green',
+      backgroundColor: theme.primary,
       padding: '5%',
       borderRadius: 60,
       elevation: 5,

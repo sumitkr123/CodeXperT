@@ -1,7 +1,6 @@
-import {Button, Pressable, Text, View} from 'react-native';
+import {Button, SafeAreaView, Text, TouchableOpacity} from 'react-native';
 
 import {CommonStyle} from '../../../assets/commonStyle';
-import {HomeStyle} from '../../../assets/homeScreenStyle';
 
 import {useAppDispatch, useAppSelector} from '../../../redux/hooks';
 import {changeTheme} from '../../../redux/ducks/theme_slice';
@@ -13,6 +12,7 @@ import {
   RootBottomNavParamList,
   RootStackParamList,
 } from '../../../models/navigationTypes';
+import {HomeStyle} from '../../../assets/screens/homeScreenStyle';
 
 export const HomeScreen = ({
   route,
@@ -25,21 +25,20 @@ export const HomeScreen = ({
   const dispatch = useAppDispatch();
 
   return (
-    <View style={CommonStyle(theme).commonContainer}>
-      <View>
-        <Text>Home Screen</Text>
-      </View>
+    <SafeAreaView style={CommonStyle(theme).commonContainer}>
+      <Text style={HomeStyle(theme).homeScreenText}>Home Screen</Text>
+
       <Button
         title="Go to Settings"
         onPress={() => navigation.jumpTo('Settings')}
       />
-      <Pressable
+
+      <TouchableOpacity
+        activeOpacity={0.75}
         style={HomeStyle(theme).themeButton}
-        onPress={() =>
-          dispatch(changeTheme(theme === 'dark' ? 'light' : 'dark'))
-        }>
+        onPress={() => dispatch(changeTheme(theme.isDark ? 'light' : 'dark'))}>
         <Text style={HomeStyle(theme).themeButtonText}>TOGGLE THEME</Text>
-      </Pressable>
-    </View>
+      </TouchableOpacity>
+    </SafeAreaView>
   );
 };

@@ -1,12 +1,13 @@
-import {StyleSheet} from 'react-native';
-import {Colors} from 'react-native/Libraries/NewAppScreen';
+import {Dimensions, StyleSheet} from 'react-native';
+import {Theme} from '../models/themeTypes';
 
-export const CommonStyle = (theme: string | null | undefined) =>
+export const CommonStyle = (theme: Theme) =>
   StyleSheet.create({
     commonContainer: {
       flex: 1,
-      padding: '5%',
-      alignItems: 'center',
-      backgroundColor: theme === 'dark' ? Colors.dark : Colors.white,
+      // alignItems: 'center',
+      backgroundColor: theme.background,
+      height: Dimensions.get('window').height,
+      width: Dimensions.get('window').width,
     },
   });

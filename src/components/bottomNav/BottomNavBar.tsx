@@ -2,11 +2,15 @@ import {HomeScreen} from '../../screens/core/home/HomeScreen';
 import {SettingScreen} from '../../screens/core/setting/SettingScreen';
 import {CreateScreen} from '../../screens/core/create/CreateScreen';
 
-import {useTheme} from 'react-native-paper';
 import {createMaterialBottomTabNavigator} from '@react-navigation/material-bottom-tabs';
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import {Dimensions} from 'react-native';
+import Icons from 'react-native-vector-icons/MaterialCommunityIcons';
+
+import {useTheme} from 'react-native-paper';
+import {TouchableOpacity, View} from 'react-native';
 import {RootBottomNavParamList} from '../../models/navigationTypes';
+import {COLORS} from '../../utils/colors';
+import {BottomNavStyle} from '../../assets/screens/bottomNavStyle';
+import {useAppSelector} from '../../redux/hooks';
 
 const BottomTabs = createMaterialBottomTabNavigator<RootBottomNavParamList>();
 
@@ -14,32 +18,23 @@ export const BottomNavBar = () => {
   const theme = useTheme();
   theme.colors.secondaryContainer = 'transperent';
 
+  const newTheme = useAppSelector(state => state.theme);
+
   return (
     <BottomTabs.Navigator
       labeled={false}
       initialRouteName="Home"
-      activeColor="red"
-      barStyle={{
-        backgroundColor: 'lightgreen',
-        borderRadius: 60,
-        height: Dimensions.get('window').height * 0.1,
-        position: 'absolute',
-        margin: 20,
-        overflow: 'hidden',
-      }}>
+      activeColor={COLORS.primary}
+      barStyle={BottomNavStyle(newTheme).barStyle}>
       <BottomTabs.Screen
         name="Home"
         component={HomeScreen}
         options={{
           tabBarIcon: ({color, focused}) => {
             return focused === true ? (
-              <MaterialCommunityIcons name="home" color={color} size={25} />
+              <Icons name="home" color={color} size={25} />
             ) : (
-              <MaterialCommunityIcons
-                name="home-outline"
-                color={color}
-                size={25}
-              />
+              <Icons name="home-outline" color={color} size={25} />
             );
           },
         }}
@@ -49,18 +44,16 @@ export const BottomNavBar = () => {
         component={CreateScreen}
         options={{
           tabBarIcon: ({color, focused}) => {
-            return focused === true ? (
-              <MaterialCommunityIcons
-                name="file-plus"
-                color={color}
-                size={25}
-              />
-            ) : (
-              <MaterialCommunityIcons
-                name="file-plus-outline"
-                color={color}
-                size={25}
-              />
+            return (
+              <TouchableOpacity style={BottomNavStyle(newTheme).addButton}>
+                <View style={BottomNavStyle(newTheme, focused, color).addView}>
+                  <Icons
+                    name="plus"
+                    color={focused === true ? COLORS.white : COLORS.black}
+                    size={25}
+                  />
+                </View>
+              </TouchableOpacity>
             );
           },
         }}
@@ -71,13 +64,9 @@ export const BottomNavBar = () => {
         options={{
           tabBarIcon: ({color, focused}) => {
             return focused === true ? (
-              <MaterialCommunityIcons name="cog" color={color} size={25} />
+              <Icons name="cog" color={color} size={25} />
             ) : (
-              <MaterialCommunityIcons
-                name="cog-outline"
-                color={color}
-                size={25}
-              />
+              <Icons name="cog-outline" color={color} size={25} />
             );
           },
         }}

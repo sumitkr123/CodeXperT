@@ -1,9 +1,9 @@
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
-import {Pressable, Text, View} from 'react-native';
+import {Text, TouchableOpacity, View} from 'react-native';
 import {useAppSelector} from '../../redux/hooks';
-import {WelcomeStyle} from '../../assets/welcomeScreenStyle';
 import {CommonStyle} from '../../assets/commonStyle';
 import {RootStackParamList} from '../../models/navigationTypes';
+import {WelcomeStyle} from '../../assets/screens/welcomeScreenStyle';
 
 export const WelcomeScreen = ({
   navigation,
@@ -15,14 +15,15 @@ export const WelcomeScreen = ({
       <Text style={WelcomeStyle(theme).welcomeText}>
         Welcome to the CodeXperT...!
       </Text>
-      <Pressable
+      <TouchableOpacity
+        activeOpacity={0.75}
         style={WelcomeStyle(theme).continueButton}
         onPress={() => {
           // Will use navigation.replace('BottomNavBar')
           navigation.push('BottomNavBar');
         }}>
-        <Text style={WelcomeStyle(theme).continueButtonText}>Continue</Text>
-      </Pressable>
+        <Text style={WelcomeStyle(theme).continueButtonText}>CONTINUE</Text>
+      </TouchableOpacity>
     </View>
   );
 };

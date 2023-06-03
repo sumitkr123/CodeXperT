@@ -4,6 +4,7 @@ import {useAppSelector} from '../../redux/hooks';
 import {CommonStyle} from '../../assets/commonStyle';
 import {RootStackParamList} from '../../models/navigationTypes';
 import {WelcomeStyle} from '../../assets/screens/welcomeScreenStyle';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export const WelcomeScreen = ({
   navigation,
@@ -19,8 +20,9 @@ export const WelcomeScreen = ({
         activeOpacity={0.75}
         style={WelcomeStyle(theme).continueButton}
         onPress={() => {
-          // Will use navigation.replace('BottomNavBar')
-          navigation.push('BottomNavBar');
+          AsyncStorage.getItem('auth_token').then(value =>
+            navigation.replace(value === null ? 'Auth' : 'BottomNavBar'),
+          );
         }}>
         <Text style={WelcomeStyle(theme).continueButtonText}>CONTINUE</Text>
       </TouchableOpacity>

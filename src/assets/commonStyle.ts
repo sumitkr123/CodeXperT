@@ -5,9 +5,34 @@ export const CommonStyle = (theme: Theme) =>
   StyleSheet.create({
     commonContainer: {
       flex: 1,
-      // alignItems: 'center',
       backgroundColor: theme.background,
-      height: Dimensions.get('window').height,
       width: Dimensions.get('window').width,
+    },
+    commonHeaderBar: {
+      backgroundColor: theme.headerBarColor,
+      elevation: 8,
+      paddingHorizontal: '5%',
+    },
+    commonHeaderBarContent: {
+      height: Dimensions.get('window').height * 0.07,
+      alignItems: 'center',
+      flexDirection: 'row',
+    },
+    commonHeaderText: {
+      color: theme.text,
+      fontWeight: 'bold',
+      fontSize: 20,
+      paddingLeft: '3%',
+    },
+    commonContentView: {
+      paddingHorizontal: '5%',
+    },
+    commonContent: {
+      marginTop: '5%',
+    },
+    commonBackIconStyle: {
+      fontSize: 30,
+      marginLeft: -30,
+      paddingLeft: 20,
     },
   });

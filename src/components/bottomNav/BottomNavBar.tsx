@@ -24,7 +24,7 @@ export const BottomNavBar = () => {
     <BottomTabs.Navigator
       labeled={false}
       initialRouteName="Home"
-      activeColor={COLORS.primary}
+      activeColor={newTheme.primary}
       barStyle={BottomNavStyle(newTheme).barStyle}>
       <BottomTabs.Screen
         name="Home"

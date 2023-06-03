@@ -1,6 +1,6 @@
 import {StyleSheet} from 'react-native';
 import {Theme} from '../../models/themeTypes';
-import {COLORS} from '../../utils/colors';
+import {Dimensions} from 'react-native';
 
 export const FormComponentStyle = (theme: Theme) =>
   StyleSheet.create({
@@ -18,14 +18,14 @@ export const FormComponentStyle = (theme: Theme) =>
       width: '100%',
       flexDirection: 'row',
       alignItems: 'center',
-      borderColor: theme.isDark ? theme.primary : COLORS.black,
+      borderColor: theme.textInputBorderColor,
       borderWidth: 2,
       borderRadius: 8,
       padding: '1.5%',
     },
     inputField: {
-      width: '100%',
+      width: '92%',
       color: theme.text,
-      paddingLeft: '3.5%'
+      paddingLeft: '3.5%',
     },
   });

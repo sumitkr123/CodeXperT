@@ -9,6 +9,7 @@ export const BottomNavStyle = (
 ) =>
   StyleSheet.create({
     barStyle: {
+      backgroundColor: COLORS.white,
       borderRadius: 60,
       borderColor: theme.primary,
       borderWidth: 3,

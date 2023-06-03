@@ -1,27 +1,8 @@
 import {createSlice} from '@reduxjs/toolkit';
 import {ColorSchemeName, useColorScheme} from 'react-native';
-import {COLORS} from '../../utils/colors';
-import {Theme} from '../../models/themeTypes';
+import {darkTheme, lightTheme} from '../../utils/constants';
 
 const initialStateTheme: ColorSchemeName = useColorScheme();
-
-const lightTheme: Theme = {
-  isDark: false,
-  background: COLORS.lightBackground,
-  text: COLORS.lightThemeTextColor,
-  primary: COLORS.primary,
-  secondary: COLORS.secondary,
-  iconColor: COLORS.black,
-};
-
-const darkTheme: Theme = {
-  isDark: true,
-  background: COLORS.darkBackground,
-  text: COLORS.darkThemeTextColor,
-  primary: COLORS.primary,
-  secondary: COLORS.secondary,
-  iconColor: COLORS.white,
-};
 
 const initialState = initialStateTheme === 'dark' ? darkTheme : lightTheme;
 

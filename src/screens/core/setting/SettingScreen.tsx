@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 
 import {
+  Alert,
   Dimensions,
   Image,
   SafeAreaView,
@@ -21,12 +22,13 @@ import {BottomTabScreenProps} from '@react-navigation/bottom-tabs';
 
 import {tAppName} from '../../../utils/text_strings';
 import {SettingStyle} from '../../../assets/styles/screens/settingScreenStyle';
-import {SettingMenusList} from '../../../utils/constants';
 
 import Icons from 'react-native-vector-icons/MaterialCommunityIcons';
 import {COLORS} from '../../../utils/colors';
 import {Switch} from 'react-native';
 import {changeTheme} from '../../../redux/ducks/theme_slice';
+import {BackHandler} from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export const SettingScreen = ({
   route,
@@ -38,6 +40,89 @@ export const SettingScreen = ({
   const theme = useAppSelector(state => state.theme);
 
   const dispatch = useAppDispatch();
+
+  const SettingMenusList = [
+    {
+      id: 1,
+      title: 'ACCOUNT',
+      options: [
+        {
+          icon: 'account-circle',
+          title: 'My account',
+          onPress: () => {},
+        },
+      ],
+    },
+    {
+      id: 2,
+      title: 'ASK US',
+      options: [
+        {
+          icon: 'comment-text-multiple',
+          title: 'FAQs',
+          onPress: () => {},
+        },
+        {
+          icon: 'email',
+          title: 'Feedback',
+          onPress: () => {},
+        },
+      ],
+    },
+    {
+      id: 3,
+      title: 'COMMUNITY',
+      options: [
+        {
+          icon: 'information',
+          title: 'Rate us',
+          onPress: () => {},
+        },
+        {
+          icon: 'share-variant',
+          title: 'Invite a friend',
+          onPress: () => {},
+        },
+
+        {
+          icon: 'eye',
+          title: 'Privacy Policy',
+          onPress: () => {},
+        },
+      ],
+    },
+    {
+      id: 4,
+      title: 'OTHER SETTINGS',
+      options: [
+        {
+          icon: 'theme-light-dark',
+          title: 'Change theme',
+          onPress: () => {},
+        },
+        {
+          icon: 'exit-to-app',
+          title: 'Exit',
+          onPress: () => {
+            Alert.alert(tAppName, 'Do you really want to exit the app..?', [
+              {
+                text: 'YES',
+                onPress: () => {
+                  console.log(theme, 'curernt');
+                  AsyncStorage.setItem('myTheme', JSON.stringify(theme)).then(
+                    _ => {
+                      BackHandler.exitApp();
+                    },
+                  );
+                },
+              },
+              {text: 'NO', onPress: () => null},
+            ]);
+          },
+        },
+      ],
+    },
+  ];
 
   const [isEnabled, setIsEnabled] = useState(false);
   const toggleSwitch = () => {
@@ -61,7 +146,7 @@ export const SettingScreen = ({
 
       <ScrollView
         contentContainerStyle={{
-          paddingBottom: '30%',
+          paddingBottom: '22%',
           paddingTop: '1%',
         }}
         canCancelContentTouches
@@ -109,11 +194,15 @@ export const SettingScreen = ({
                     </Text>
                     {item.options.map((newItem, index) => {
                       return newItem.title !== 'Change theme' ? (
-                        <TouchableOpacity key={index} activeOpacity={0.6}>
+                        <TouchableOpacity
+                          key={index}
+                          activeOpacity={0.6}
+                          onPress={newItem.onPress}>
                           <View
                             style={{
                               flexDirection: 'row',
                               marginTop: '5%',
+                              alignItems: 'center',
                             }}>
                             <Icons
                               name={newItem.icon}
@@ -132,7 +221,10 @@ export const SettingScreen = ({
                           </View>
                         </TouchableOpacity>
                       ) : (
-                        <TouchableOpacity key={index} activeOpacity={0.75}>
+                        <TouchableOpacity
+                          key={index}
+                          activeOpacity={0.75}
+                          onPress={newItem.onPress}>
                           <View
                             style={{
                               flexDirection: 'row',

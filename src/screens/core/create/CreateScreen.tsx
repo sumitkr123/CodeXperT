@@ -1,25 +1,25 @@
+import React from 'react';
+
 import {Keyboard, SafeAreaView, ScrollView, Text} from 'react-native';
-import {CommonStyle} from '../../../assets/commonStyle';
+import {CommonStyle} from '../../../assets/styles/commonStyle';
 import {useAppSelector} from '../../../redux/hooks';
 import {View} from 'react-native';
 import Icons from 'react-native-vector-icons/MaterialCommunityIcons';
 import {CompositeScreenProps} from '@react-navigation/native';
-import {MaterialBottomTabScreenProps} from '@react-navigation/material-bottom-tabs';
 import {
   RootBottomNavParamList,
   RootStackParamList,
 } from '../../../models/navigationTypes';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
-import {FormInput} from '../../../components/formInputs/FormInput';
-import {AllFormInputs} from '../../../utils/constants';
+import {BottomTabScreenProps} from '@react-navigation/bottom-tabs';
 
 export const CreateScreen = ({
   route,
   navigation,
 }: CompositeScreenProps<
-  MaterialBottomTabScreenProps<RootBottomNavParamList>,
+  BottomTabScreenProps<RootBottomNavParamList>,
   NativeStackScreenProps<RootStackParamList>
->) => {
+>): React.JSX.Element => {
   const theme = useAppSelector(state => state.theme);
 
   return (

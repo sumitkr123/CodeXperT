@@ -1,115 +1,26 @@
-import {PassRuleJSX} from '../components/formInputs/PasswordRule';
 import {Theme} from '../models/themeTypes';
-import {TypeLogin, TypeRegisterForm} from '../models/userModel';
 import {COLORS} from './colors';
-
-export const AllFormInputs = [
-  {
-    id: 1,
-    icon: 'book-open-outline',
-    type: 'text',
-    label: 'Language',
-    name: 'language',
-    placeholder: 'Enter language name',
-  },
-  {
-    id: 2,
-    icon: 'check-circle-outline',
-    type: 'text',
-    label: 'Title',
-    name: 'title',
-    placeholder: 'Enter title',
-  },
-];
-
-export const lightTheme: Theme = {
-  isDark: false,
-  background: COLORS.lightBackground,
-  text: COLORS.lightThemeTextColor,
-  primary: COLORS.primary,
-  secondary: COLORS.secondary,
-  backIconColor: COLORS.black,
-  iconColor: COLORS.black,
-  headerBarColor: COLORS.white,
-  textInputBorderColor: COLORS.black,
-};
-
-export const darkTheme: Theme = {
-  isDark: true,
-  background: COLORS.darkBackground,
-  text: COLORS.darkThemeTextColor,
-  primary: COLORS.primary,
-  secondary: COLORS.secondary,
-  backIconColor: COLORS.white,
-  iconColor: COLORS.primary,
-  headerBarColor: COLORS.primary,
-  textInputBorderColor: COLORS.primary,
-};
-
-export const paginno = [1, 2, 3, 5, 10, 20, 30, 40];
-
-export const fixedLengthValue = 250;
+import {
+  tEmail,
+  tEnterEmail,
+  tEnterPass,
+  tEnterPhone,
+  tEnterUserName,
+  tPass,
+  tPhone,
+  tUserName,
+} from './text_strings';
 
 export const nameRegex = /^[a-zA-Z]{2,3}[a-zA-Z\s]*$/;
 export const phoneRegex = /^[6-9]\d{9}$/;
 export const mailRegex = /^\w+[@]{1}\w+(\.[a-zA-Z]{2,3})+$/;
 export const passwordRegex = /^[A-Z]{1}[a-zA-Z]+[@$.]{1}[a-zA-Z\d]+$/;
 
-export const accountTypes = [
-  'Personal Account',
-  'Real Living',
-  'My Dream Home',
-  'Full Circle',
-  'Core Realtors',
-  'Big Block',
-];
-
-export const transactionTypes = ['Home Expense', 'Personal Expense', 'Income'];
-
-export const today = new Date();
-export const currentyear = today.getFullYear();
-export const month = [
-  'Jan',
-  'Feb',
-  'Mar',
-  'Apr',
-  'May',
-  'Jun',
-  'Jul',
-  'Aug',
-  'Sep',
-  'Oct',
-  'Nov',
-  'Dec',
-];
-
-type typemonthYears = string;
-
-const monthYears: typemonthYears[] = [];
-
 export const supportedImg = ['png', 'jpg', 'jpeg'];
 
 export const mb1 = 1024 * 1024;
 
 export const fileReader = new FileReader();
-
-month.map(month => monthYears.push(`${month} ${currentyear}`));
-
-export default monthYears;
-
-export const fixedimit = 2;
-
-export const fixedShowPageCount = 3;
-
-export const groupby = [
-  {tdate: 'Transaction-date'},
-  {monthyear: 'Month-year'},
-  {ttype: 'Transaction-type'},
-  {FromAc: 'From-Ac'},
-  {ToAc: 'To-Ac'},
-  {amount: 'Amount'},
-  {notes: 'Notes'},
-];
 
 export const isValidFileType = (fileName: string) => {
   let fileType = fileName.split('.').pop();
@@ -133,30 +44,32 @@ const milliseconds = 1000;
 
 date.setTime(date.getTime() + minutes * seconds * milliseconds);
 
-export const cookieExpireTime = date;
+export const lightTheme: Theme = {
+  isDark: false,
+  background: COLORS.lightBackground,
+  text: COLORS.lightThemeTextColor,
+  primary: COLORS.primary,
+  secondary: COLORS.secondary,
+  backIconColor: COLORS.black,
+  iconColor: COLORS.black,
+  headerBarColor: COLORS.white,
+  textInputBorderColor: COLORS.black,
+  success: COLORS.green,
+  error: COLORS.red,
+};
 
-export const DynamicRegisterForm: TypeRegisterForm = {
-  name: {
-    name: 'name',
-    label: 'Name',
-    type: 'text',
-  },
-  phone: {
-    name: 'phone',
-    label: 'Phone',
-    type: 'number',
-  },
-  email: {
-    name: 'email',
-    label: 'Email',
-    type: 'email',
-  },
-  pass: {
-    name: 'pass',
-    label: 'Password',
-    type: 'password',
-    passRules: PassRuleJSX,
-  },
+export const darkTheme: Theme = {
+  isDark: true,
+  background: COLORS.darkBackground,
+  text: COLORS.darkThemeTextColor,
+  primary: COLORS.darkPrimary,
+  secondary: COLORS.secondary,
+  backIconColor: COLORS.white,
+  iconColor: COLORS.darkPrimary,
+  headerBarColor: COLORS.darkPrimary,
+  textInputBorderColor: COLORS.darkPrimary,
+  success: COLORS.green,
+  error: COLORS.red,
 };
 
 export const defaultUsers = [
@@ -215,18 +128,18 @@ export const LoginFormInputs = [
   {
     id: 1,
     icon: 'account-outline',
-    type: 'text',
-    label: 'Username',
+    type: 'email',
+    label: tEmail,
     name: 'email',
-    placeholder: 'Enter your username',
+    placeholder: tEnterEmail,
   },
   {
     id: 2,
     icon: 'lock-outline',
     type: 'password',
-    label: 'Password',
+    label: tPass,
     name: 'pass',
-    placeholder: 'Enter password',
+    placeholder: tEnterPass,
   },
 ];
 
@@ -235,32 +148,88 @@ export const RegisterFormInputs = [
     id: 1,
     icon: 'account-outline',
     type: 'text',
-    label: 'Name',
+    label: tUserName,
     name: 'name',
-    placeholder: 'Enter your name',
+    placeholder: tEnterUserName,
   },
   {
     id: 2,
     icon: 'email-outline',
     type: 'text',
-    label: 'Email',
+    label: tEmail,
     name: 'email',
-    placeholder: 'Enter your email',
+    placeholder: tEnterEmail,
   },
   {
     id: 3,
     icon: 'phone-outline',
     type: 'phone',
-    label: 'Phone no.',
+    label: tPhone,
     name: 'phone',
-    placeholder: 'Enter phone no.',
+    placeholder: tEnterPhone,
   },
   {
     id: 4,
     icon: 'lock-outline',
     type: 'password',
-    label: 'Password',
+    label: tPass,
     name: 'pass',
-    placeholder: 'Enter password',
+    placeholder: tEnterPass,
+  },
+];
+
+export const SettingMenusList = [
+  {
+    id: 1,
+    title: 'ACCOUNT',
+    options: [
+      {
+        icon: 'account-circle',
+        title: 'My account',
+      },
+    ],
+  },
+  {
+    id: 2,
+    title: 'ASK US',
+    options: [
+      {
+        icon: 'comment-text-multiple',
+        title: 'FAQs',
+      },
+      {
+        icon: 'email',
+        title: 'Feedback',
+      },
+    ],
+  },
+  {
+    id: 3,
+    title: 'COMMUNITY',
+    options: [
+      {
+        icon: 'information',
+        title: 'Rate us',
+      },
+      {
+        icon: 'share-variant',
+        title: 'Invite a friend',
+      },
+
+      {
+        icon: 'eye',
+        title: 'Privacy Policy',
+      },
+    ],
+  },
+  {
+    id: 4,
+    title: 'OTHER SETTINGS',
+    options: [
+      {
+        icon: 'theme-light-dark',
+        title: 'Change theme',
+      },
+    ],
   },
 ];

@@ -1,5 +1,7 @@
+import React from 'react';
+
 import {yupResolver} from '@hookform/resolvers/yup';
-import {Controller, Form, useForm} from 'react-hook-form';
+import {Controller, useForm} from 'react-hook-form';
 
 import {RootState} from '../../../redux/store';
 
@@ -7,15 +9,17 @@ import {useAppSelector} from '../../../redux/hooks';
 import {User} from '../../../models/userModel';
 import {LoginValidationSchema} from '../../../validations/schema';
 import {
-  SafeAreaView,
   ScrollView,
   Text,
   TouchableWithoutFeedback,
   View,
+  Dimensions,
+  Image,
+  TouchableOpacity,
 } from 'react-native';
 
-import {CommonStyle} from '../../../assets/commonStyle';
-import {FormInput} from '../../../components/formInputs/FormInput';
+import {CommonStyle} from '../../../assets/styles/commonStyle';
+import {FormInput} from '../../../components/form/FormInput';
 import {LoginFormInputs} from '../../../utils/constants';
 
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
@@ -24,9 +28,18 @@ import {
   RootAuthStackParamList,
   RootStackParamList,
 } from '../../../models/navigationTypes';
-import {Button} from '@react-native-material/core';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {CompositeScreenProps} from '@react-navigation/native';
+import {Button} from 'react-native-paper';
+import {SafeAreaView} from 'react-native-safe-area-context';
+import {
+  tDontHaveAc,
+  tLoginSubTitle,
+  tLoginTitle,
+  tSignup1,
+} from '../../../utils/text_strings';
+import {WelcomeStyle} from '../../../assets/styles/screens/welcomeScreenStyle';
+import {LoginStyle} from '../../../assets/styles/screens/loginScreenStyle';
 
 export const Login = ({
   route,
@@ -69,17 +82,39 @@ export const Login = ({
 
   return (
     <SafeAreaView style={CommonStyle(theme).commonContainer}>
-      <ScrollView canCancelContentTouches>
+      <ScrollView
+        contentContainerStyle={{
+          paddingBottom: '10%',
+          paddingTop: '1%',
+        }}
+        canCancelContentTouches
+        showsVerticalScrollIndicator={false}>
         <View style={CommonStyle(theme).commonContentView}>
           <View style={CommonStyle(theme).commonContent}>
+            <Image
+              source={require('../../../assets/images/bird1.png')}
+              style={{
+                height: Dimensions.get('window').height * 0.23,
+                width: Dimensions.get('window').width * 0.39,
+              }}
+            />
+            <Text
+              style={{
+                color: theme.primary,
+                fontWeight: '500',
+                fontSize: 25,
+              }}>
+              {tLoginTitle}
+            </Text>
+
             <Text
               style={{
                 color: theme.text,
                 fontSize: 25,
-                fontWeight: 'bold',
-                marginBottom: '15%',
+                fontWeight: '400',
+                marginBottom: '7%',
               }}>
-              Login with your credentials..!
+              {tLoginSubTitle}
             </Text>
 
             {LoginFormInputs.map(item => {
@@ -95,7 +130,6 @@ export const Login = ({
                         type={item.type}
                         label={item.label}
                         placeholder={item.placeholder}
-                        name={item.name}
                         onChange={onChange}
                         onBlur={onBlur}
                         value={value}
@@ -108,35 +142,39 @@ export const Login = ({
               );
             })}
 
-            <Button
-              style={{
-                backgroundColor: theme.primary,
-                marginTop: '10%',
-              }}
-              title="Submit"
-              onPress={handleSubmit(onSubmit)}
-            />
+            <TouchableOpacity
+              activeOpacity={0.78}
+              style={LoginStyle(theme).loginButton}
+              onPress={handleSubmit(onSubmit)}>
+              <Text style={LoginStyle(theme).loginButtonText}>LOGIN</Text>
+            </TouchableOpacity>
 
             <TouchableWithoutFeedback
               onPress={() => navigation.navigate('Register')}>
-              <Text
+              <View
                 style={{
-                  color: theme.text,
-                  fontSize: 20,
-                  fontWeight: 'bold',
-                  marginTop: '15%',
+                  flexDirection: 'row',
+                  justifyContent: 'center',
                 }}>
-                Don't have an account yet..!{' '}
                 <Text
                   style={{
-                    color: theme.primary,
+                    color: theme.text,
                     fontSize: 20,
-                    fontWeight: 'bold',
-                    textDecorationLine: 'underline',
+                    fontWeight: '500',
+                    marginTop: '15%',
                   }}>
-                  Sign-up!
+                  {tDontHaveAc}{' '}
+                  <Text
+                    style={{
+                      color: theme.primary,
+                      fontSize: 20,
+                      fontWeight: '600',
+                      textDecorationLine: 'underline',
+                    }}>
+                    {tSignup1}
+                  </Text>
                 </Text>
-              </Text>
+              </View>
             </TouchableWithoutFeedback>
           </View>
         </View>

@@ -8,4 +8,6 @@ export interface Theme {
   iconColor: string;
   headerBarColor: string;
   textInputBorderColor: string;
+  success: string;
+  error: string;
 }

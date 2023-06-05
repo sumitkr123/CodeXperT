@@ -1,3 +1,5 @@
+import 'react-native-gesture-handler';
+
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {WelcomeScreen} from './src/components/welcomePage/WelcomeScreen';
@@ -7,9 +9,14 @@ import {store} from './src/redux/store';
 import {RootStackParamList} from './src/models/navigationTypes';
 import {Auth} from './src/components/auth/Auth';
 
+import {enableScreens} from 'react-native-screens';
+import React from 'react';
+
+enableScreens();
+
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
-const App = () => {
+const App = (): React.JSX.Element => {
   return (
     <Provider store={store}>
       <NavigationContainer>

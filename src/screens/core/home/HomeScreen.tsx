@@ -1,10 +1,11 @@
-import {Button, SafeAreaView, Text, TouchableOpacity} from 'react-native';
+import React from 'react';
 
-import {CommonStyle} from '../../../assets/commonStyle';
+import {SafeAreaView, Text} from 'react-native';
 
-import {useAppDispatch, useAppSelector} from '../../../redux/hooks';
-import {changeTheme} from '../../../redux/ducks/theme_slice';
-import {MaterialBottomTabScreenProps} from '@react-navigation/material-bottom-tabs';
+import {CommonStyle} from '../../../assets/styles/commonStyle';
+
+import {useAppSelector} from '../../../redux/hooks';
+
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 
 import {CompositeScreenProps} from '@react-navigation/native';
@@ -12,33 +13,21 @@ import {
   RootBottomNavParamList,
   RootStackParamList,
 } from '../../../models/navigationTypes';
-import {HomeStyle} from '../../../assets/screens/homeScreenStyle';
+import {HomeStyle} from '../../../assets/styles/screens/homeScreenStyle';
+import {BottomTabScreenProps} from '@react-navigation/bottom-tabs';
 
 export const HomeScreen = ({
   route,
   navigation,
 }: CompositeScreenProps<
-  MaterialBottomTabScreenProps<RootBottomNavParamList>,
+  BottomTabScreenProps<RootBottomNavParamList>,
   NativeStackScreenProps<RootStackParamList>
->) => {
+>): React.JSX.Element => {
   const theme = useAppSelector(state => state.theme);
-  const dispatch = useAppDispatch();
 
   return (
     <SafeAreaView style={CommonStyle(theme).commonContainer}>
       <Text style={HomeStyle(theme).homeScreenText}>Home Screen</Text>
-
-      <Button
-        title="Go to Settings"
-        onPress={() => navigation.jumpTo('Settings')}
-      />
-
-      <TouchableOpacity
-        activeOpacity={0.75}
-        style={HomeStyle(theme).themeButton}
-        onPress={() => dispatch(changeTheme(theme.isDark ? 'light' : 'dark'))}>
-        <Text style={HomeStyle(theme).themeButtonText}>TOGGLE THEME</Text>
-      </TouchableOpacity>
     </SafeAreaView>
   );
 };

@@ -1,3 +1,5 @@
+import React from 'react';
+
 import {yupResolver} from '@hookform/resolvers/yup';
 import {Controller, useForm} from 'react-hook-form';
 
@@ -7,22 +9,32 @@ import {useAppDispatch, useAppSelector} from '../../../redux/hooks';
 import {User} from '../../../models/userModel';
 import {RegistrationValidationSchema} from '../../../validations/schema';
 import {
-  SafeAreaView,
   ScrollView,
   Text,
   TouchableWithoutFeedback,
   View,
+  Image,
+  Dimensions,
+  TouchableOpacity,
 } from 'react-native';
 
-import {CommonStyle} from '../../../assets/commonStyle';
-import {FormInput} from '../../../components/formInputs/FormInput';
+import {CommonStyle} from '../../../assets/styles/commonStyle';
+import {FormInput} from '../../../components/form/FormInput';
 import {RegisterFormInputs} from '../../../utils/constants';
 
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 
 import {RootAuthStackParamList} from '../../../models/navigationTypes';
-import {Button} from '@react-native-material/core';
 import {addUser} from '../../../redux/ducks/users_slice';
+import {Button} from 'react-native-paper';
+import {SafeAreaView} from 'react-native-safe-area-context';
+import {
+  tAlreadyHaveAc,
+  tLogin1,
+  tSignupSubtitle,
+  tSignupTitle,
+} from '../../../utils/text_strings';
+import {RegisterStyle} from '../../../assets/styles/screens/registerScreenStyle';
 
 export const Register = ({
   route,
@@ -48,17 +60,39 @@ export const Register = ({
 
   return (
     <SafeAreaView style={CommonStyle(theme).commonContainer}>
-      <ScrollView canCancelContentTouches>
+      <ScrollView
+        contentContainerStyle={{
+          paddingBottom: '10%',
+          paddingTop: '1%',
+        }}
+        canCancelContentTouches={true}
+        showsVerticalScrollIndicator={false}>
         <View style={CommonStyle(theme).commonContentView}>
           <View style={CommonStyle(theme).commonContent}>
+            <Image
+              source={require('../../../assets/images/bird1.png')}
+              style={{
+                height: Dimensions.get('window').height * 0.23,
+                width: Dimensions.get('window').width * 0.39,
+              }}
+            />
+            <Text
+              style={{
+                color: theme.primary,
+                fontWeight: '500',
+                fontSize: 25,
+              }}>
+              {tSignupTitle}
+            </Text>
+
             <Text
               style={{
                 color: theme.text,
                 fontSize: 25,
-                fontWeight: 'bold',
-                marginBottom: '15%',
+                fontWeight: '400',
+                marginBottom: '7%',
               }}>
-              Register yourself..!
+              {tSignupSubtitle}
             </Text>
 
             {RegisterFormInputs.map(item => {
@@ -74,7 +108,6 @@ export const Register = ({
                         type={item.type}
                         label={item.label}
                         placeholder={item.placeholder}
-                        name={item.name}
                         onChange={onChange}
                         onBlur={onBlur}
                         value={value}
@@ -87,35 +120,41 @@ export const Register = ({
               );
             })}
 
-            <Button
-              style={{
-                backgroundColor: theme.primary,
-                marginTop: '10%',
-              }}
-              title="Submit"
-              onPress={handleSubmit(onSubmit)}
-            />
+            <TouchableOpacity
+              activeOpacity={0.78}
+              style={RegisterStyle(theme).registerButton}
+              onPress={handleSubmit(onSubmit)}>
+              <Text style={RegisterStyle(theme).registerButtonText}>
+                SIGNUP
+              </Text>
+            </TouchableOpacity>
 
             <TouchableWithoutFeedback
               onPress={() => navigation.navigate('Login')}>
-              <Text
+              <View
                 style={{
-                  color: theme.text,
-                  fontSize: 20,
-                  fontWeight: 'bold',
-                  marginTop: '15%',
+                  flexDirection: 'row',
+                  justifyContent: 'center',
                 }}>
-                Already have an account..!{' '}
                 <Text
                   style={{
-                    color: theme.primary,
+                    color: theme.text,
                     fontSize: 20,
-                    fontWeight: 'bold',
-                    textDecorationLine: 'underline',
+                    fontWeight: '500',
+                    marginTop: '15%',
                   }}>
-                  Sign-in!
+                  {tAlreadyHaveAc}{' '}
+                  <Text
+                    style={{
+                      color: theme.primary,
+                      fontSize: 20,
+                      fontWeight: '600',
+                      textDecorationLine: 'underline',
+                    }}>
+                    {tLogin1}
+                  </Text>
                 </Text>
-              </Text>
+              </View>
             </TouchableWithoutFeedback>
           </View>
         </View>

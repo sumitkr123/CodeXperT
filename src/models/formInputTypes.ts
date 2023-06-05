@@ -7,7 +7,7 @@ export type FormInputTypeProps = {
   icon: string;
   type: string;
   label: string;
-  name: string;
+  name?: string;
   placeholder: string;
   register?: ControllerRenderProps<User, string>;
   onChange: (...event: any[]) => void;

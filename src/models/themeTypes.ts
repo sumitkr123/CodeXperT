@@ -4,10 +4,11 @@ export interface Theme {
   text: string;
   primary: string;
   secondary: string;
-  backIconColor: string;
+  blackWhiteIconColor: string;
   iconColor: string;
   headerBarColor: string;
   textInputBorderColor: string;
+  greenBlueHeading: string
   success: string;
   error: string;
 }

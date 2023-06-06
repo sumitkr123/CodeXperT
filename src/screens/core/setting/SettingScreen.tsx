@@ -1,15 +1,6 @@
 import React, {useState} from 'react';
 
-import {
-  Alert,
-  Dimensions,
-  Image,
-  SafeAreaView,
-  ScrollView,
-  Text,
-  TouchableOpacity,
-  View,
-} from 'react-native';
+import {SafeAreaView, Text, View} from 'react-native';
 import {useAppDispatch, useAppSelector} from '../../../redux/hooks';
 import {CommonStyle} from '../../../assets/styles/commonStyle';
 import {CompositeScreenProps} from '@react-navigation/native';
@@ -20,15 +11,9 @@ import {
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {BottomTabScreenProps} from '@react-navigation/bottom-tabs';
 
-import {tAppName} from '../../../utils/text_strings';
-import {SettingStyle} from '../../../assets/styles/screens/settingScreenStyle';
-
 import Icons from 'react-native-vector-icons/MaterialCommunityIcons';
-import {COLORS} from '../../../utils/colors';
-import {Switch} from 'react-native';
+import {SettingMenus} from '../../../components/other/settingMenus';
 import {changeTheme} from '../../../redux/ducks/theme_slice';
-import {BackHandler} from 'react-native';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export const SettingScreen = ({
   route,
@@ -41,92 +26,9 @@ export const SettingScreen = ({
 
   const dispatch = useAppDispatch();
 
-  const SettingMenusList = [
-    {
-      id: 1,
-      title: 'ACCOUNT',
-      options: [
-        {
-          icon: 'account-circle',
-          title: 'My account',
-          onPress: () => {},
-        },
-      ],
-    },
-    {
-      id: 2,
-      title: 'ASK US',
-      options: [
-        {
-          icon: 'comment-text-multiple',
-          title: 'FAQs',
-          onPress: () => {},
-        },
-        {
-          icon: 'email',
-          title: 'Feedback',
-          onPress: () => {},
-        },
-      ],
-    },
-    {
-      id: 3,
-      title: 'COMMUNITY',
-      options: [
-        {
-          icon: 'information',
-          title: 'Rate us',
-          onPress: () => {},
-        },
-        {
-          icon: 'share-variant',
-          title: 'Invite a friend',
-          onPress: () => {},
-        },
-
-        {
-          icon: 'eye',
-          title: 'Privacy Policy',
-          onPress: () => {},
-        },
-      ],
-    },
-    {
-      id: 4,
-      title: 'OTHER SETTINGS',
-      options: [
-        {
-          icon: 'theme-light-dark',
-          title: 'Change theme',
-          onPress: () => {},
-        },
-        {
-          icon: 'exit-to-app',
-          title: 'Exit',
-          onPress: () => {
-            Alert.alert(tAppName, 'Do you really want to exit the app..?', [
-              {
-                text: 'YES',
-                onPress: () => {
-                  console.log(theme, 'curernt');
-                  AsyncStorage.setItem('myTheme', JSON.stringify(theme)).then(
-                    _ => {
-                      BackHandler.exitApp();
-                    },
-                  );
-                },
-              },
-              {text: 'NO', onPress: () => null},
-            ]);
-          },
-        },
-      ],
-    },
-  ];
-
-  const [isEnabled, setIsEnabled] = useState(false);
+  const [isSwitchEnabled, setIsSwitchEnabled] = useState(false);
   const toggleSwitch = () => {
-    setIsEnabled(previousState => !previousState);
+    setIsSwitchEnabled(previousState => !previousState);
     dispatch(changeTheme(theme.isDark ? 'light' : 'dark'));
   };
 
@@ -136,7 +38,7 @@ export const SettingScreen = ({
         <View style={CommonStyle(theme).commonHeaderBarContent}>
           <Icons
             name="chevron-left"
-            color={theme.backIconColor}
+            color={theme.blackWhiteIconColor}
             style={CommonStyle(theme).commonBackIconStyle}
             onPress={() => navigation.goBack()}
           />
@@ -144,135 +46,17 @@ export const SettingScreen = ({
         </View>
       </View>
 
-      <ScrollView
-        contentContainerStyle={{
-          paddingBottom: '22%',
-          paddingTop: '1%',
-        }}
-        canCancelContentTouches
-        showsVerticalScrollIndicator={false}>
-        <View style={CommonStyle(theme).commonContentView}>
-          <View style={CommonStyle(theme).commonContent}>
-            <View
-              style={{
-                marginVertical: '10%',
-                alignItems: 'center',
-              }}>
-              <Image
-                source={require('../../../assets/images/bird1.png')}
-                style={{
-                  height: Dimensions.get('window').height * 0.31,
-                  width: Dimensions.get('window').width * 0.535,
-                }}
-              />
-            </View>
-
-            <View
-              style={{
-                alignItems: 'center',
-                marginVertical: '10%',
-              }}>
-              <Text style={SettingStyle(theme).logoText}>{tAppName}</Text>
-            </View>
-
-            <View
-              style={{
-                flexDirection: 'column',
-              }}>
-              {SettingMenusList.map(item => {
-                return (
-                  <View
-                    key={item.id}
-                    style={{
-                      marginVertical: '5%',
-                    }}>
-                    <Text
-                      style={{
-                        color: theme.isDark ? theme.success : COLORS.blue,
-                      }}>
-                      {item.title}
-                    </Text>
-                    {item.options.map((newItem, index) => {
-                      return newItem.title !== 'Change theme' ? (
-                        <TouchableOpacity
-                          key={index}
-                          activeOpacity={0.6}
-                          onPress={newItem.onPress}>
-                          <View
-                            style={{
-                              flexDirection: 'row',
-                              marginTop: '5%',
-                              alignItems: 'center',
-                            }}>
-                            <Icons
-                              name={newItem.icon}
-                              color={
-                                theme.isDark ? COLORS.white : theme.iconColor
-                              }
-                              size={25}
-                            />
-                            <Text
-                              style={{
-                                marginLeft: 15,
-                                color: theme.text,
-                              }}>
-                              {newItem.title}
-                            </Text>
-                          </View>
-                        </TouchableOpacity>
-                      ) : (
-                        <TouchableOpacity
-                          key={index}
-                          activeOpacity={0.75}
-                          onPress={newItem.onPress}>
-                          <View
-                            style={{
-                              flexDirection: 'row',
-                              justifyContent: 'space-between',
-                              alignItems: 'center',
-                              marginTop: '5%',
-                            }}>
-                            <View
-                              style={{
-                                flexDirection: 'row',
-                                alignItems: 'center',
-                              }}>
-                              <Icons
-                                name={newItem.icon}
-                                color={
-                                  theme.isDark ? COLORS.white : theme.iconColor
-                                }
-                                size={25}
-                              />
-                              <Text
-                                style={{
-                                  marginLeft: 15,
-                                  color: theme.text,
-                                }}>
-                                {newItem.title}
-                              </Text>
-                            </View>
-
-                            <Switch
-                              trackColor={{false: '#767577', true: '#81b0ff'}}
-                              thumbColor={
-                                theme.isDark ? '#f5dd4b' : COLORS.black
-                              }
-                              ios_backgroundColor="#3e3e3e"
-                              onValueChange={toggleSwitch}
-                              value={isEnabled}
-                            />
-                          </View>
-                        </TouchableOpacity>
-                      );
-                    })}
-                  </View>
-                );
-              })}
-            </View>
-          </View>
+      <View style={CommonStyle(theme).commonContentView}>
+        <View style={CommonStyle(theme).commonContent}>
+          <SettingMenus
+            theme={theme}
+            isSwitchEnabled={isSwitchEnabled}
+            toggleSwitch={toggleSwitch}
+            route={route}
+            navigation={navigation}
+          />
         </View>
-      </ScrollView>
+      </View>
     </SafeAreaView>
   );
 };

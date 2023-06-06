@@ -28,7 +28,7 @@ export const CreateScreen = ({
         <View style={[CommonStyle(theme).commonHeaderBarContent]}>
           <Icons
             name="chevron-left"
-            color={theme.backIconColor}
+            color={theme.blackWhiteIconColor}
             style={CommonStyle(theme).commonBackIconStyle}
             onPress={() => {
               Keyboard.dismiss();

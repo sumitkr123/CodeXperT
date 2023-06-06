@@ -30,7 +30,6 @@ import {
 } from '../../../models/navigationTypes';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {CompositeScreenProps} from '@react-navigation/native';
-import {Button} from 'react-native-paper';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {
   tDontHaveAc,
@@ -38,8 +37,8 @@ import {
   tLoginTitle,
   tSignup1,
 } from '../../../utils/text_strings';
-import {WelcomeStyle} from '../../../assets/styles/screens/welcomeScreenStyle';
 import {LoginStyle} from '../../../assets/styles/screens/loginScreenStyle';
+import {usersSelector} from '../../../redux/ducks/users_slice';
 
 export const Login = ({
   route,
@@ -48,7 +47,9 @@ export const Login = ({
   NativeStackScreenProps<RootAuthStackParamList>,
   NativeStackScreenProps<RootStackParamList>
 >): React.JSX.Element => {
-  const users = useAppSelector<User[]>((state: RootState) => state.users);
+  const users = usersSelector(
+    useAppSelector<User[]>((state: RootState) => state.users),
+  );
 
   const theme = useAppSelector(state => state.theme);
 
@@ -61,23 +62,22 @@ export const Login = ({
     mode: 'all',
   });
 
-  const onSubmit = (data: User): void => {
+  const onSubmit = async (data: User): Promise<void> => {
     let randomstr = '';
     randomstr +=
       data.email + data.email.split('').reverse().join('') + data.pass;
 
-    let auth_data = users.filter(
-      (item: User) => item.email === data.email && item.pass === data.pass,
-    );
+    let auth_data = users.filter((item: User) => {
+      return item.email === data.email && item.pass === data.pass;
+    });
 
     const obj = {...auth_data[0]};
     obj.token = randomstr;
 
     auth_data = [{...obj}];
 
-    AsyncStorage.setItem('auth_token', JSON.stringify(auth_data)).then(value =>
-      navigation.replace('BottomNavBar'),
-    );
+    await AsyncStorage.setItem('auth_token', JSON.stringify(auth_data));
+    navigation.replace('BottomNavBar');
   };
 
   return (

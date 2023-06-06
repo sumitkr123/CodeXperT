@@ -25,8 +25,7 @@ import {RegisterFormInputs} from '../../../utils/constants';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 
 import {RootAuthStackParamList} from '../../../models/navigationTypes';
-import {addUser} from '../../../redux/ducks/users_slice';
-import {Button} from 'react-native-paper';
+import {addUser, usersSelector} from '../../../redux/ducks/users_slice';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {
   tAlreadyHaveAc,
@@ -40,7 +39,9 @@ export const Register = ({
   route,
   navigation,
 }: NativeStackScreenProps<RootAuthStackParamList>): React.JSX.Element => {
-  const users = useAppSelector<User[]>((state: RootState) => state.users);
+  const users = usersSelector(
+    useAppSelector<User[]>((state: RootState) => state.users),
+  );
   const dispatch = useAppDispatch();
 
   const theme = useAppSelector(state => state.theme);
@@ -54,8 +55,9 @@ export const Register = ({
     mode: 'all',
   });
 
-  const onSubmit = async (data: User): Promise<void> => {
+  const onSubmit = (data: User): void => {
     dispatch(addUser(data));
+    navigation.navigate('Login');
   };
 
   return (

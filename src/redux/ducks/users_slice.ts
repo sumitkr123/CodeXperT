@@ -1,8 +1,13 @@
 import {PayloadAction, createSlice} from '@reduxjs/toolkit';
-import {defaultUsers} from '../../utils/constants';
 import {User} from '../../models/userModel';
+import {WritableDraft} from 'immer/dist/internal';
 
-const initialState: User[] = defaultUsers;
+let initialState: Array<User> = [];
+
+// transform to array
+export const usersSelector = (userObj: WritableDraft<User>[]) => {
+  return Object.keys(userObj).map((userKey: any) => userObj[userKey]);
+};
 
 export const userSlice = createSlice({
   name: 'users',
@@ -11,10 +16,14 @@ export const userSlice = createSlice({
     addUser: (state, action: PayloadAction<User>) => {
       const data = action.payload;
 
-      let newdata = [...state];
+      const newdata = usersSelector(state);
 
-      if (state.length !== 0 && state.length !== undefined) {
-        data['id'] = state[state.length - 1].id! + 1;
+      if (
+        newdata.length !== undefined &&
+        newdata !== undefined &&
+        newdata.length >= 1
+      ) {
+        data['id'] = newdata[newdata.length - 1].id + 1;
 
         newdata.push(data);
 

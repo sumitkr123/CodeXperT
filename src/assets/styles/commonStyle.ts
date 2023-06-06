@@ -28,7 +28,7 @@ export const CommonStyle = (theme: Theme) =>
       paddingHorizontal: '5%',
     },
     commonContent: {
-      marginTop: '5%',
+      // marginTop: '5%',
     },
     commonBackIconStyle: {
       fontSize: 30,

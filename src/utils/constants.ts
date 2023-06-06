@@ -1,4 +1,5 @@
 import {Theme} from '../models/themeTypes';
+import {User} from '../models/userModel';
 import {COLORS} from './colors';
 import {
   tEmail,
@@ -50,9 +51,10 @@ export const lightTheme: Theme = {
   text: COLORS.lightThemeTextColor,
   primary: COLORS.primary,
   secondary: COLORS.secondary,
-  backIconColor: COLORS.black,
+  blackWhiteIconColor: COLORS.black,
   iconColor: COLORS.black,
   headerBarColor: COLORS.white,
+  greenBlueHeading: COLORS.blue,
   textInputBorderColor: COLORS.black,
   success: COLORS.green,
   error: COLORS.red,
@@ -64,7 +66,8 @@ export const darkTheme: Theme = {
   text: COLORS.darkThemeTextColor,
   primary: COLORS.darkPrimary,
   secondary: COLORS.secondary,
-  backIconColor: COLORS.white,
+  blackWhiteIconColor: COLORS.white,
+  greenBlueHeading: COLORS.green,
   iconColor: COLORS.darkPrimary,
   headerBarColor: COLORS.darkPrimary,
   textInputBorderColor: COLORS.darkPrimary,
@@ -72,7 +75,7 @@ export const darkTheme: Theme = {
   error: COLORS.red,
 };
 
-export const defaultUsers = [
+export const defaultUsers: User[] = [
   {
     id: 1,
     name: 'Sumit Bhardwaj',
@@ -177,5 +180,3 @@ export const RegisterFormInputs = [
     placeholder: tEnterPass,
   },
 ];
-
-

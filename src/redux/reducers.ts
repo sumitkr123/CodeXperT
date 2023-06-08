@@ -3,10 +3,10 @@ import ThemeReducer from './ducks/theme_slice';
 import UserReducer from './ducks/users_slice';
 import PostReducer from './ducks/posts_slice';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {PersistConfig, createTransform, persistReducer} from 'redux-persist';
+import {PersistConfig, persistReducer} from 'redux-persist';
 import {Theme} from '../models/themeTypes';
 import {User} from '../models/userModel';
-import {PostType, SinglePostType} from '../models/postModel';
+import {PostType} from '../models/postModel';
 
 // const SetTransform = createTransform(
 //   // transform state on its way to being serialized and persisted.

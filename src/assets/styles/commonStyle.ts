@@ -1,15 +1,15 @@
 import {Dimensions, StyleSheet} from 'react-native';
 import {Theme} from '../../models/themeTypes';
 
-export const CommonStyle = (theme: Theme) =>
+export const CommonStyle = (theme?: Theme) =>
   StyleSheet.create({
     commonContainer: {
       flex: 1,
-      backgroundColor: theme.background,
+      backgroundColor: theme?.background,
       width: Dimensions.get('window').width,
     },
     commonHeaderBar: {
-      backgroundColor: theme.headerBarColor,
+      backgroundColor: theme?.headerBarColor,
       elevation: 8,
       paddingHorizontal: '5%',
     },
@@ -19,7 +19,7 @@ export const CommonStyle = (theme: Theme) =>
       flexDirection: 'row',
     },
     commonHeaderText: {
-      color: theme.text,
+      color: theme?.text,
       fontWeight: 'bold',
       fontSize: 20,
       paddingLeft: '3%',

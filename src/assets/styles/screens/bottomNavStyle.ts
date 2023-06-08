@@ -20,6 +20,7 @@ export const BottomNavStyle = (
       overflow: 'hidden',
       margin: 20,
       justifyContent: 'center',
+      elevation: 0,
     },
     addButton: {
       flex: 1,

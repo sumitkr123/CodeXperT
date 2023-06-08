@@ -12,15 +12,16 @@ import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {BottomTabScreenProps} from '@react-navigation/bottom-tabs';
 
 import Icons from 'react-native-vector-icons/MaterialCommunityIcons';
-import {SettingMenus} from '../../../components/other/settingMenus';
+import {SettingMenus} from '../../../components/other/SettingMenus';
 import {changeTheme} from '../../../redux/ducks/theme_slice';
+import {ScreenHeader} from '../../../components/other/ScreenHeader';
 
 export const SettingScreen = ({
   route,
   navigation,
 }: CompositeScreenProps<
-  BottomTabScreenProps<RootBottomNavParamList>,
-  NativeStackScreenProps<RootStackParamList>
+  BottomTabScreenProps<RootBottomNavParamList, 'Settings'>,
+  NativeStackScreenProps<RootStackParamList, 'BottomNavBar'>
 >): React.JSX.Element => {
   const theme = useAppSelector(state => state.theme);
 
@@ -34,17 +35,12 @@ export const SettingScreen = ({
 
   return (
     <SafeAreaView style={CommonStyle(theme).commonContainer}>
-      <View style={CommonStyle(theme).commonHeaderBar}>
-        <View style={CommonStyle(theme).commonHeaderBarContent}>
-          <Icons
-            name="chevron-left"
-            color={theme.blackWhiteIconColor}
-            style={CommonStyle(theme).commonBackIconStyle}
-            onPress={() => navigation.goBack()}
-          />
-          <Text style={CommonStyle(theme).commonHeaderText}>Setting</Text>
-        </View>
-      </View>
+      <ScreenHeader
+        theme={theme}
+        navigation={navigation}
+        headerTitle={'Setting'}
+        backIcon={'home'}
+      />
 
       <View style={CommonStyle(theme).commonContentView}>
         <View style={CommonStyle(theme).commonContent}>

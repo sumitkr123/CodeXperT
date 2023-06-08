@@ -8,7 +8,7 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import {MyCustomSwitch} from './switch';
+import {MyCustomSwitch} from './Switch';
 import Icons from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import {tAppName} from '../../utils/text_strings';
@@ -68,7 +68,9 @@ export const SettingMenus = ({
         {
           icon: 'account-circle',
           title: 'My account',
-          onPress: () => {},
+          onPress: () => {
+            navigation.navigate('Profile');
+          },
         },
       ],
     },

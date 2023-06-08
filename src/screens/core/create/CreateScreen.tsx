@@ -1,6 +1,7 @@
 import React from 'react';
 
 import {
+  BackHandler,
   Keyboard,
   SafeAreaView,
   ScrollView,
@@ -11,7 +12,7 @@ import {CommonStyle} from '../../../assets/styles/commonStyle';
 import {useAppDispatch, useAppSelector} from '../../../redux/hooks';
 import {View} from 'react-native';
 import Icons from 'react-native-vector-icons/MaterialCommunityIcons';
-import {CompositeScreenProps} from '@react-navigation/native';
+import {CompositeScreenProps, useFocusEffect} from '@react-navigation/native';
 import {
   RootBottomNavParamList,
   RootStackParamList,
@@ -26,8 +27,9 @@ import {yupResolver} from '@hookform/resolvers/yup';
 import {CodeForm} from '../../../models/codeType';
 import {CreateStyle} from '../../../assets/styles/screens/createScreenStyle';
 import {addPost} from '../../../redux/ducks/posts_slice';
-import {PostType, SinglePostType} from '../../../models/postModel';
+import {SinglePostType} from '../../../models/postModel';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import {ScreenHeader} from '../../../components/other/ScreenHeader';
 
 const SeeUserInfo = async () => {
   const currentUserData = await AsyncStorage.getItem('auth_token');
@@ -40,19 +42,40 @@ export const CreateScreen = ({
   route,
   navigation,
 }: CompositeScreenProps<
-  BottomTabScreenProps<RootBottomNavParamList>,
-  NativeStackScreenProps<RootStackParamList>
+  BottomTabScreenProps<RootBottomNavParamList, 'Create'>,
+  NativeStackScreenProps<RootStackParamList, 'BottomNavBar'>
 >): React.JSX.Element => {
   const theme = useAppSelector(state => state.theme);
 
   const {
     control,
     handleSubmit,
+    reset,
     formState: {errors},
   } = useForm<CodeForm>({
     resolver: yupResolver(CreateCodePostValidationSchema),
     mode: 'all',
   });
+
+  useFocusEffect(
+    React.useCallback(() => {
+      const onBackPress = () => {
+        reset();
+        navigation.goBack();
+        // Return true to stop default back navigaton
+        // Return false to keep default back navigaton
+        return true;
+      };
+
+      // Add Event Listener for hardwareBackPress
+      BackHandler.addEventListener('hardwareBackPress', onBackPress);
+
+      return () => {
+        // Once the Screen gets blur Remove Event Listener
+        BackHandler.removeEventListener('hardwareBackPress', onBackPress);
+      };
+    }, []),
+  );
 
   const dispatch = useAppDispatch();
 
@@ -78,29 +101,22 @@ export const CreateScreen = ({
     dispatch(
       addPost({data: newData, currentUser: userData[0].email.toString()}),
     );
+    reset();
     navigation.goBack();
   };
 
   return (
     <SafeAreaView style={CommonStyle(theme).commonContainer}>
-      <View style={CommonStyle(theme).commonHeaderBar}>
-        <View style={[CommonStyle(theme).commonHeaderBarContent]}>
-          <Icons
-            name="chevron-left"
-            color={theme.blackWhiteIconColor}
-            style={CommonStyle(theme).commonBackIconStyle}
-            onPress={() => {
-              Keyboard.dismiss();
-              navigation.goBack();
-            }}
-          />
-
-          <Text style={CommonStyle(theme).commonHeaderText}>Create</Text>
-        </View>
-      </View>
+      <ScreenHeader
+        theme={theme}
+        navigation={navigation}
+        headerTitle={'Create'}
+        backIcon={'home'}
+      />
 
       <ScrollView
         canCancelContentTouches={true}
+        showsVerticalScrollIndicator={false}
         contentContainerStyle={{
           paddingTop: 50,
         }}>

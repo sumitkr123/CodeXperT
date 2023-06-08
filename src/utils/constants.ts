@@ -182,7 +182,7 @@ export const RegisterFormInputs = [
   },
 ];
 
-const ProgrammingLanguages: LanguageOptionsTypes = {
+export const ProgrammingLanguages: LanguageOptionsTypes = {
   0: 'C',
   1: 'C++',
   2: 'JAVA',

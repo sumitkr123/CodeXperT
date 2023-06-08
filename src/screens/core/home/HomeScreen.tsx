@@ -1,6 +1,13 @@
 import React from 'react';
 
-import {Alert, Button, SafeAreaView, Text, View} from 'react-native';
+import {
+  Alert,
+  Button,
+  SafeAreaView,
+  ScrollView,
+  Text,
+  View,
+} from 'react-native';
 
 import {CommonStyle} from '../../../assets/styles/commonStyle';
 
@@ -23,18 +30,10 @@ const SeeUserInfo = () => {
 export const HomeScreen = ({
   route,
   navigation,
-}: BottomTabScreenProps<RootBottomNavParamList>): React.JSX.Element => {
+}: BottomTabScreenProps<RootBottomNavParamList, 'Home'>): React.JSX.Element => {
   const theme = useAppSelector(state => state.theme);
 
-  let allPosts = useAppSelector(state => {
-    let a: {[key: string]: any} = {};
-    for (let key in state.posts) {
-      if (key !== '_persist') {
-        a[key] = state.posts[key];
-      }
-    }
-    return a;
-  });
+  const allPosts = useAppSelector(state => state.posts.allPosts);
 
   useFocusEffect(
     React.useCallback(() => {
@@ -63,33 +62,40 @@ export const HomeScreen = ({
     }, []),
   );
 
-  console.log(allPosts);
-
   return (
     <SafeAreaView style={CommonStyle(theme).commonContainer}>
       <Text style={HomeStyle(theme).homeScreenText}>Home Screen</Text>
       <Button onPress={() => SeeUserInfo()} title="See" />
-      {Object.values(allPosts).length > 0 &&
-        Object.values(allPosts).map((item: SinglePostType[]) => {
-          return (
-            item &&
-            item.map((newitem: SinglePostType, index: number) => {
-              return (
-                <View
-                  key={index}
-                  style={{
-                    flexDirection: 'column',
-                    marginVertical: 20,
-                  }}>
-                  <Text>{newitem.language}</Text>
-                  <Text>{newitem.title}</Text>
-                  <Text>{newitem.code}</Text>
-                  <Text>{newitem.createdDate}</Text>
+      <ScrollView showsVerticalScrollIndicator={false}>
+        {Object.keys(allPosts).length > 0 &&
+          Object.keys(allPosts).map((author: string) => {
+            return (
+              author && (
+                <View key={author}>
+                  <Text>{author}</Text>
+
+                  {allPosts[author].map(
+                    (newitem: SinglePostType, index: number) => {
+                      return (
+                        <View
+                          key={index}
+                          style={{
+                            flexDirection: 'column',
+                            marginVertical: 20,
+                          }}>
+                          <Text>{newitem.language}</Text>
+                          <Text>{newitem.title}</Text>
+                          <Text>{newitem.code}</Text>
+                          <Text>{newitem.createdDate}</Text>
+                        </View>
+                      );
+                    },
+                  )}
                 </View>
-              );
-            })
-          );
-        })}
+              )
+            );
+          })}
+      </ScrollView>
     </SafeAreaView>
   );
 };

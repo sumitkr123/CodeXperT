@@ -1,5 +1,5 @@
 export type SinglePostType = {
-  [key: string]: any;
+  // [key: string]: any;
   id: string;
   language: string;
   title: string;
@@ -8,7 +8,9 @@ export type SinglePostType = {
 };
 
 export type PostType = {
-  [key: string]: SinglePostType[];
+  allPosts: {
+    [key: string]: SinglePostType[];
+  };
 };
 
 export type AddPostPayloadType = {

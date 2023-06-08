@@ -13,6 +13,8 @@ import {Auth} from './src/components/auth/Auth';
 import {enableScreens} from 'react-native-screens';
 import {PersistGate} from 'redux-persist/integration/react';
 import {Text} from 'react-native';
+import {ProfileScreen} from './src/screens/core/profile/ProfileScreen';
+import {SeeCode} from './src/screens/core/code/SeeCode';
 
 enableScreens();
 
@@ -31,8 +33,9 @@ const App = (): React.JSX.Element => {
             }}>
             <Stack.Screen name="Welcome" component={WelcomeScreen} />
             <Stack.Screen name="Auth" component={Auth} />
-
             <Stack.Screen name="BottomNavBar" component={BottomNavBar} />
+            <Stack.Screen name="Profile" component={ProfileScreen} />
+            <Stack.Screen name="SeeCode" component={SeeCode} />
           </Stack.Navigator>
         </NavigationContainer>
       </PersistGate>

@@ -6,7 +6,7 @@ import {
   phoneRegex,
 } from '../utils/constants';
 import {TypeLoginValidationSchema, User} from '../models/userModel';
-import {CodeForm, TypeCodeFormValidationSchema} from '../models/codeType';
+import {TypeCodeFormValidationSchema} from '../models/codeType';
 
 export const RegistrationValidationSchema = (
   users: User[],

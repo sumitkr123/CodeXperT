@@ -1,6 +1,13 @@
 import React from 'react';
 
-import {Keyboard, TouchableWithoutFeedback, View} from 'react-native';
+import {
+  Dimensions,
+  Keyboard,
+  Modal,
+  ScrollView,
+  TouchableWithoutFeedback,
+  View,
+} from 'react-native';
 import {FormInputTypeProps} from '../../models/formInputTypes';
 import {Text} from 'react-native';
 import Icons from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -23,8 +30,6 @@ export const FormInput = ({
 }: FormInputTypeProps) => {
   const [focused, setFocused] = useState<boolean>(false);
 
-  const [selected, setSelected] = useState<string>('');
-
   const inputRef = useRef<any>('');
 
   let fieldblock = <></>;
@@ -41,15 +46,17 @@ export const FormInput = ({
             height: 50,
           }}
           onTouchEnd={() => setFocused(focused === true ? false : true)}>
-          <Text
+          <TextInput
+            ref={inputRef}
+            editable={false}
             style={{
               width: '92%',
               color: theme.text,
             }}>
-            {selected ? selected : placeholder && placeholder}
-          </Text>
+            {value ? value : placeholder}
+          </TextInput>
           <Icons
-            name="menu-down"
+            name={!focused ? 'menu-down' : 'menu-up'}
             color={
               error
                 ? theme.error
@@ -212,61 +219,80 @@ export const FormInput = ({
         </View>
       </TouchableWithoutFeedback>
       {focused === true && type === 'select' && (
-        <View
-          style={{
-            flex: 1,
-            flexDirection: 'column',
-          }}>
-          {options && (
-            <>
-              <View
-                style={{
-                  flex: 1,
-                  paddingLeft: 5,
-                  height: 50,
-                }}
-                onTouchEnd={() => {
-                  setSelected('');
-                  setFocused(false);
-                  onChange('');
-                  inputRef.current.value = '';
-                }}>
-                <Text
-                  style={{
-                    width: '92%',
-                    color: theme.text,
-                  }}>
-                  {placeholder}
-                </Text>
-              </View>
-              {Object.values(options).map((item, index) => {
-                return (
+        <Modal
+          animationType="fade"
+          transparent
+          visible={focused}
+          presentationStyle="overFullScreen"
+          onDismiss={() => setFocused(!focused)}>
+          <ScrollView
+            contentContainerStyle={{
+              flex: 1,
+              alignSelf: 'center',
+              position: 'absolute',
+              marginVertical: '30%',
+              elevation: 5,
+              height: Dimensions.get('window').height * 0.6,
+              width: Dimensions.get('window').width * 0.8,
+              backgroundColor: '#fff',
+              borderRadius: 10,
+              padding: 30,
+            }}>
+            <View
+              style={{
+                flex: 1,
+                flexDirection: 'column',
+              }}>
+              {options && (
+                <>
                   <View
-                    key={item + index}
                     style={{
                       flex: 1,
                       paddingLeft: 5,
                       height: 50,
                     }}
                     onTouchEnd={() => {
-                      setSelected(item);
                       setFocused(false);
-                      onChange(item);
-                      inputRef.current.value = item;
+                      onChange('');
+                      inputRef.current.value = '';
                     }}>
                     <Text
                       style={{
                         width: '92%',
                         color: theme.text,
                       }}>
-                      {item}
+                      {placeholder}
                     </Text>
                   </View>
-                );
-              })}
-            </>
-          )}
-        </View>
+                  {Object.values(options).map((item, index) => {
+                    return (
+                      <View
+                        key={item + index}
+                        style={{
+                          flex: 1,
+                          paddingLeft: 5,
+                          height: 50,
+                        }}
+                        onTouchEnd={() => {
+                          setFocused(false);
+                          onChange(item);
+                          inputRef.current.value = item;
+                        }}>
+                        <Text
+                          style={{
+                            width: '92%',
+                            color: theme.text,
+                          }}>
+                          {item}
+                        </Text>
+                      </View>
+                    );
+                  })}
+                </>
+              )}
+            </View>
+          </ScrollView>
+        </Modal>
       )}
     </>
   );

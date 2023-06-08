@@ -1,8 +1,14 @@
 import {PayloadAction, createSlice} from '@reduxjs/toolkit';
-import {AddPostPayloadType, PostType} from '../../models/postModel';
+import {
+  AddPostPayloadType,
+  PostType,
+  SinglePostType,
+} from '../../models/postModel';
 // import {WritableDraft} from 'immer/dist/internal';
 
-let initialState: PostType = {};
+let initialState: PostType = {
+  allPosts: {},
+};
 
 export const PostsSlice = createSlice({
   name: 'posts',
@@ -11,17 +17,27 @@ export const PostsSlice = createSlice({
     addPost: (state, action: PayloadAction<AddPostPayloadType>) => {
       const data = action.payload;
 
-      const newdata = {...state};
+      const wholeNewdata: PostType = JSON.parse(JSON.stringify(state));
 
-      if (newdata[data.currentUser]) {
-        const existingData = Object.values(newdata[data.currentUser]);
+      const wholeAllPosts: {[key: string]: SinglePostType[]} = JSON.parse(
+        JSON.stringify(wholeNewdata.allPosts),
+      );
+
+      if (wholeAllPosts[data.currentUser]) {
+        let existingData = [...wholeAllPosts[data.currentUser]];
         existingData.push(data.data);
-        newdata[data.currentUser] = existingData;
+
+        wholeAllPosts[data.currentUser] = existingData;
       } else {
-        newdata[data.currentUser] = [data.data];
+        let newData1: SinglePostType[] = [];
+        newData1.push(data.data);
+
+        wholeAllPosts[data.currentUser] = newData1;
       }
 
-      return newdata;
+      wholeNewdata.allPosts = JSON.parse(JSON.stringify(wholeAllPosts));
+
+      return wholeNewdata;
     },
   },
 });

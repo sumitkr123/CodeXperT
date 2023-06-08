@@ -7,6 +7,16 @@ export type User = {
   pass: string;
 };
 
+export type UserDataFromToken = {
+  [key: string]: any;
+  id: number;
+  name: string;
+  phone: string;
+  email: string;
+  pass: string;
+  token: string;
+};
+
 export type TypeLoginValidationSchema = {
   email: string;
   pass: string;

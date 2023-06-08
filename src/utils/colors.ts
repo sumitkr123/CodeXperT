@@ -8,6 +8,7 @@ export const COLORS = {
   black: 'black',
   white: 'white',
   primary: '#6201bd',
+  transparent: Colors.transparent,
   // darkPrimary: '#f0c400',
   darkPrimary: '#6201bd',
   secondary: 'black',

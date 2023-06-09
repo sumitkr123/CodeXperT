@@ -7,7 +7,6 @@ import {
   ScrollView,
   Text,
   TouchableOpacity,
-  View,
 } from 'react-native';
 import {useAppSelector} from '../../redux/hooks';
 import {CommonStyle} from '../../assets/styles/commonStyle';

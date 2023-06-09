@@ -7,6 +7,10 @@ export type User = {
   pass: string;
 };
 
+export type UsersType = {
+  allUsers: User[];
+};
+
 export type UserDataFromToken = {
   [key: string]: any;
   id: number;

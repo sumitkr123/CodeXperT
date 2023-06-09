@@ -1,25 +1,16 @@
 import React from 'react';
 
 import {yupResolver} from '@hookform/resolvers/yup';
-import {Controller, useForm} from 'react-hook-form';
+import {useForm} from 'react-hook-form';
 
 import {RootState} from '../../../redux/store';
 
 import {useAppSelector} from '../../../redux/hooks';
 import {User} from '../../../models/userModel';
 import {LoginValidationSchema} from '../../../validations/schema';
-import {
-  ScrollView,
-  Text,
-  TouchableWithoutFeedback,
-  View,
-  Dimensions,
-  Image,
-  TouchableOpacity,
-} from 'react-native';
+import {ScrollView, View} from 'react-native';
 
 import {CommonStyle} from '../../../assets/styles/commonStyle';
-import {FormInput} from '../../../components/form/FormInput';
 import {LoginFormInputs} from '../../../utils/constants';
 
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
@@ -37,21 +28,25 @@ import {
   tLoginTitle,
   tSignup1,
 } from '../../../utils/text_strings';
-import {LoginStyle} from '../../../assets/styles/screens/loginScreenStyle';
+import {AuthFormFooter} from '../../../components/form/AuthFormFooter';
+import {AuthFormHeader} from '../../../components/form/AuthFormHeader';
+import {FormInputsCreator} from '../../../components/form/FormInputsCreator';
 
 export const Login = ({
-  route,
   navigation,
 }: CompositeScreenProps<
   NativeStackScreenProps<RootAuthStackParamList>,
   NativeStackScreenProps<RootStackParamList>
 >): React.JSX.Element => {
-  const users = useAppSelector<User[]>((state: RootState) => state.users);
+  const users = useAppSelector<User[]>(
+    (state: RootState) => state.users.allUsers,
+  );
 
   const theme = useAppSelector(state => state.theme);
 
   const {
     control,
+    reset,
     handleSubmit,
     formState: {errors},
   } = useForm<User>({
@@ -64,7 +59,7 @@ export const Login = ({
     randomstr +=
       data.email + data.email.split('').reverse().join('') + data.pass;
 
-    let auth_data = Object.values(users).filter((item: User) => {
+    let auth_data = users.filter((item: User) => {
       return item.email === data.email && item.pass === data.pass;
     });
 
@@ -88,91 +83,30 @@ export const Login = ({
         showsVerticalScrollIndicator={false}>
         <View style={CommonStyle(theme).commonContentView}>
           <View style={CommonStyle(theme).commonContent}>
-            <Image
-              source={require('../../../assets/images/bird1.png')}
-              style={{
-                height: Dimensions.get('window').height * 0.23,
-                width: Dimensions.get('window').width * 0.42,
-              }}
+            <AuthFormHeader
+              theme={theme}
+              title={tLoginTitle}
+              subtitle={tLoginSubTitle}
             />
-            <Text
-              style={{
-                color: theme.primary,
-                fontWeight: '500',
-                fontSize: 25,
-              }}>
-              {tLoginTitle}
-            </Text>
 
-            <Text
-              style={{
-                color: theme.text,
-                fontSize: 25,
-                fontWeight: '400',
-                marginBottom: '7%',
-              }}>
-              {tLoginSubTitle}
-            </Text>
+            <FormInputsCreator
+              theme={theme}
+              control={control}
+              errors={errors}
+              FormInputList={LoginFormInputs}
+            />
 
-            {LoginFormInputs.map(item => {
-              return (
-                <View key={item.id}>
-                  <Controller
-                    control={control}
-                    render={({field: {onBlur, onChange, value}}) => (
-                      <FormInput
-                        key={item.id}
-                        theme={theme}
-                        icon={item.icon}
-                        type={item.type}
-                        label={item.label}
-                        placeholder={item.placeholder}
-                        onChange={onChange}
-                        onBlur={onBlur}
-                        value={value}
-                        error={errors[item.name]?.message?.toString()}
-                      />
-                    )}
-                    name={item.name}
-                  />
-                </View>
-              );
-            })}
-
-            <TouchableOpacity
-              activeOpacity={0.78}
-              style={LoginStyle(theme).loginButton}
-              onPress={handleSubmit(onSubmit)}>
-              <Text style={LoginStyle(theme).loginButtonText}>LOGIN</Text>
-            </TouchableOpacity>
-
-            <TouchableWithoutFeedback
-              onPress={() => navigation.navigate('Register')}>
-              <View
-                style={{
-                  flexDirection: 'row',
-                  justifyContent: 'center',
-                }}>
-                <Text
-                  style={{
-                    color: theme.text,
-                    fontSize: 20,
-                    fontWeight: '500',
-                    marginTop: '15%',
-                  }}>
-                  {tDontHaveAc}{' '}
-                  <Text
-                    style={{
-                      color: theme.primary,
-                      fontSize: 20,
-                      fontWeight: '600',
-                      textDecorationLine: 'underline',
-                    }}>
-                    {tSignup1}
-                  </Text>
-                </Text>
-              </View>
-            </TouchableWithoutFeedback>
+            <AuthFormFooter
+              theme={theme}
+              onPrimaryButtonPress={handleSubmit(onSubmit)}
+              onSecondaryLinkPress={() => {
+                reset();
+                navigation.navigate('Register');
+              }}
+              primaryButtonText={'Login'}
+              secondaryLinkFirstText={tDontHaveAc}
+              secondaryLinkSecondText={tSignup1}
+            />
           </View>
         </View>
       </ScrollView>

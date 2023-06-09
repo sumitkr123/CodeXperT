@@ -27,9 +27,7 @@ export const CommonStyle = (theme?: Theme) =>
     commonContentView: {
       paddingHorizontal: '5%',
     },
-    commonContent: {
-      // marginTop: '5%',
-    },
+    commonContent: {},
     commonBackIconStyle: {
       fontSize: 30,
       marginLeft: -30,
@@ -39,5 +37,18 @@ export const CommonStyle = (theme?: Theme) =>
       flex: 1,
       justifyContent: 'center',
       alignItems: 'center',
+    },
+    primaryButton: {
+      backgroundColor: theme?.primary,
+      marginTop: '7%',
+      paddingVertical: '4%',
+      borderRadius: 60,
+      elevation: 5,
+      alignItems: 'center',
+    },
+    primaryButtonText: {
+      color: 'white',
+      fontWeight: 'bold',
+      fontSize: 20,
     },
   });

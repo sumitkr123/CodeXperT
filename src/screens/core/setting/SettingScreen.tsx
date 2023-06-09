@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 
-import {SafeAreaView, Text, View} from 'react-native';
+import {SafeAreaView, View} from 'react-native';
 import {useAppDispatch, useAppSelector} from '../../../redux/hooks';
 import {CommonStyle} from '../../../assets/styles/commonStyle';
 import {CompositeScreenProps} from '@react-navigation/native';
@@ -11,7 +11,6 @@ import {
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {BottomTabScreenProps} from '@react-navigation/bottom-tabs';
 
-import Icons from 'react-native-vector-icons/MaterialCommunityIcons';
 import {SettingMenus} from '../../../components/other/SettingMenus';
 import {changeTheme} from '../../../redux/ducks/theme_slice';
 import {ScreenHeader} from '../../../components/other/ScreenHeader';
@@ -39,7 +38,7 @@ export const SettingScreen = ({
         theme={theme}
         navigation={navigation}
         headerTitle={'Setting'}
-        backIcon={'home'}
+        leftIcon={'home'}
       />
 
       <View style={CommonStyle(theme).commonContentView}>

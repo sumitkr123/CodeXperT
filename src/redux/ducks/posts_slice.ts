@@ -4,7 +4,6 @@ import {
   PostType,
   SinglePostType,
 } from '../../models/postModel';
-// import {WritableDraft} from 'immer/dist/internal';
 
 let initialState: PostType = {
   allPosts: {},

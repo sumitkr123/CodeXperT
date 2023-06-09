@@ -2,7 +2,6 @@ import React from 'react';
 
 import {
   BackHandler,
-  Keyboard,
   SafeAreaView,
   ScrollView,
   Text,
@@ -11,7 +10,6 @@ import {
 import {CommonStyle} from '../../../assets/styles/commonStyle';
 import {useAppDispatch, useAppSelector} from '../../../redux/hooks';
 import {View} from 'react-native';
-import Icons from 'react-native-vector-icons/MaterialCommunityIcons';
 import {CompositeScreenProps, useFocusEffect} from '@react-navigation/native';
 import {
   RootBottomNavParamList,
@@ -20,16 +18,15 @@ import {
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {BottomTabScreenProps} from '@react-navigation/bottom-tabs';
 import {CreateCodePostFormInputs} from '../../../utils/constants';
-import {Controller, useForm} from 'react-hook-form';
-import {FormInput} from '../../../components/form/FormInput';
+import {useForm} from 'react-hook-form';
 import {CreateCodePostValidationSchema} from '../../../validations/schema';
 import {yupResolver} from '@hookform/resolvers/yup';
 import {CodeForm} from '../../../models/codeType';
-import {CreateStyle} from '../../../assets/styles/screens/createScreenStyle';
 import {addPost} from '../../../redux/ducks/posts_slice';
 import {SinglePostType} from '../../../models/postModel';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {ScreenHeader} from '../../../components/other/ScreenHeader';
+import {FormInputsCreator} from '../../../components/form/FormInputsCreator';
 
 const SeeUserInfo = async () => {
   const currentUserData = await AsyncStorage.getItem('auth_token');
@@ -39,7 +36,6 @@ const SeeUserInfo = async () => {
 };
 
 export const CreateScreen = ({
-  route,
   navigation,
 }: CompositeScreenProps<
   BottomTabScreenProps<RootBottomNavParamList, 'Create'>,
@@ -111,7 +107,10 @@ export const CreateScreen = ({
         theme={theme}
         navigation={navigation}
         headerTitle={'Create'}
-        backIcon={'home'}
+        leftIcon={'home'}
+        leftIconOnPress={() => {
+          reset();
+        }}
       />
 
       <ScrollView
@@ -132,37 +131,18 @@ export const CreateScreen = ({
               Create a code snippet..!
             </Text>
 
-            {CreateCodePostFormInputs.map(item => {
-              return (
-                <View key={item.id}>
-                  <Controller
-                    control={control}
-                    render={({field: {onBlur, onChange, value}}) => (
-                      <FormInput
-                        key={item.id}
-                        theme={theme}
-                        icon={item.icon}
-                        type={item.type}
-                        label={item.label}
-                        placeholder={item.placeholder}
-                        onChange={onChange}
-                        onBlur={onBlur}
-                        value={value}
-                        options={item.options}
-                        error={errors[item.name]?.message?.toString()}
-                      />
-                    )}
-                    name={item.name}
-                  />
-                </View>
-              );
-            })}
+            <FormInputsCreator
+              theme={theme}
+              control={control}
+              errors={errors}
+              FormInputList={CreateCodePostFormInputs}
+            />
 
             <TouchableOpacity
               activeOpacity={0.78}
-              style={CreateStyle(theme).postButton}
+              style={CommonStyle(theme).primaryButton}
               onPress={handleSubmit(onSubmit)}>
-              <Text style={CreateStyle(theme).postButtonText}>POST</Text>
+              <Text style={CommonStyle(theme).primaryButtonText}>POST</Text>
             </TouchableOpacity>
           </View>
         </View>

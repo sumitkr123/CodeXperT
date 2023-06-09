@@ -15,7 +15,6 @@ import {tAppName} from '../../utils/text_strings';
 import {Theme} from '../../models/themeTypes';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {Image} from 'react-native';
-import {SettingStyle} from '../../assets/styles/screens/settingScreenStyle';
 import {CompositeNavigationProp, RouteProp} from '@react-navigation/native';
 import {
   RootBottomNavParamList,
@@ -57,7 +56,6 @@ export const SettingMenus = ({
   theme,
   isSwitchEnabled,
   toggleSwitch,
-  route,
   navigation,
 }: MyCustomSettingProps): React.JSX.Element => {
   const SettingMenusList: SettingList = [
@@ -189,7 +187,14 @@ export const SettingMenus = ({
               alignItems: 'center',
               marginVertical: '10%',
             }}>
-            <Text style={SettingStyle(theme).logoText}>{tAppName}</Text>
+            <Text
+              style={{
+                fontWeight: 'bold',
+                fontSize: 25,
+                color: theme.text,
+              }}>
+              {tAppName}
+            </Text>
           </View>
         </>
       }

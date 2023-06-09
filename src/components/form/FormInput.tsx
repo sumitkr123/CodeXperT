@@ -92,6 +92,7 @@ export const FormInput = ({
         />
       );
       break;
+
     case 'password':
       fieldblock = (
         <TextInput
@@ -218,6 +219,7 @@ export const FormInput = ({
           {error && <Text style={{color: 'red', fontSize: 16}}>{error}</Text>}
         </View>
       </TouchableWithoutFeedback>
+
       {focused === true && type === 'select' && (
         <Modal
           animationType="fade"

@@ -18,34 +18,6 @@ export const phoneRegex = /^[6-9]\d{9}$/;
 export const mailRegex = /^\w+[@]{1}\w+(\.[a-zA-Z]{2,3})+$/;
 export const passwordRegex = /^[A-Z]{1}[a-zA-Z]+[@$.]{1}[a-zA-Z\d]+$/;
 
-export const supportedImg = ['png', 'jpg', 'jpeg'];
-
-export const mb1 = 1024 * 1024;
-
-export const fileReader = new FileReader();
-
-export const isValidFileType = (fileName: string) => {
-  let fileType = fileName.split('.').pop();
-  if (typeof fileType === 'string') {
-    return fileName && supportedImg.includes(fileType);
-  }
-};
-
-export async function getFile(file: Blob) {
-  fileReader.readAsDataURL(file);
-
-  await new Promise<void>(resolve => (fileReader.onloadend = () => resolve()));
-
-  return fileReader.result;
-}
-
-let date = new Date();
-const minutes = 60;
-const seconds = 60;
-const milliseconds = 1000;
-
-date.setTime(date.getTime() + minutes * seconds * milliseconds);
-
 export const lightTheme: Theme = {
   isDark: false,
   background: COLORS.lightBackground,
@@ -195,7 +167,6 @@ export const ProgrammingLanguages: LanguageOptionsTypes = {
 export const CreateCodePostFormInputs = [
   {
     id: 1,
-    // icon: 'web-box',
     type: 'select',
     label: 'Language',
     name: 'language',

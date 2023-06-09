@@ -5,32 +5,15 @@ import PostReducer from './ducks/posts_slice';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {PersistConfig, persistReducer} from 'redux-persist';
 import {Theme} from '../models/themeTypes';
-import {User} from '../models/userModel';
+import {UsersType} from '../models/userModel';
 import {PostType} from '../models/postModel';
-
-// const SetTransform = createTransform(
-//   // transform state on its way to being serialized and persisted.
-//   (inboundState: any, key) => {
-//     // convert mySet to an Array.
-//     return {users: JSON.stringify(inboundState)};
-//   },
-
-//   // transform state being rehydrated
-//   (outboundState, key) => {
-//     // convert mySet back to a Set.
-//     return {users: JSON.parse(outboundState.users)};
-//   },
-
-//   // define which reducers this transform gets called for.
-//   {blacklist: ['_persist']},
-// );
 
 const themePersistConfig: PersistConfig<Theme> = {
   key: 'userTheme',
   storage: AsyncStorage,
 };
 
-const userPersistConfig: PersistConfig<Array<User>> = {
+const userPersistConfig: PersistConfig<UsersType> = {
   key: 'allUsers',
   storage: AsyncStorage,
 };

@@ -261,7 +261,7 @@ export const FormInput = ({
                     <Text
                       style={{
                         width: '92%',
-                        color: theme.text,
+                        color: COLORS.black,
                       }}>
                       {placeholder}
                     </Text>
@@ -283,7 +283,7 @@ export const FormInput = ({
                         <Text
                           style={{
                             width: '92%',
-                            color: theme.text,
+                            color: COLORS.black,
                           }}>
                           {item}
                         </Text>

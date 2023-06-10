@@ -1,4 +1,4 @@
-import {Dimensions, Text} from 'react-native';
+import {Dimensions, Text, View} from 'react-native';
 import {Image} from 'react-native';
 import {Theme} from '../../models/themeTypes';
 
@@ -15,13 +15,22 @@ export const AuthFormHeader = ({
 }: AuthFormHeaderProps) => {
   return (
     <>
-      <Image
-        source={require('../../assets/images/bird1.png')}
+      <View
         style={{
-          height: Dimensions.get('window').height * 0.23,
-          width: Dimensions.get('window').width * 0.42,
-        }}
-      />
+          height: Dimensions.get('window').height * 0.24,
+          width: Dimensions.get('window').width * 0.4,
+        }}>
+        <Image
+          source={require('../../assets/images/bird1.png')}
+          style={{
+            flex: 1,
+            width: 'auto',
+            height: 'auto',
+            resizeMode: 'contain',
+          }}
+        />
+      </View>
+
       <Text
         style={{
           color: theme.primary,

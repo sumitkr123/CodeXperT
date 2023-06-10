@@ -22,6 +22,7 @@ import {
 } from '../../models/navigationTypes';
 import {BottomTabNavigationProp} from '@react-navigation/bottom-tabs';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
+import {CommonStyle} from '../../assets/styles/commonStyle';
 
 type MyCustomSettingProps = {
   theme: Theme;
@@ -48,7 +49,7 @@ type SettingList = {
   data: {
     icon: string;
     title: string;
-    onPress: () => void;
+    onPress?: () => void;
   }[];
 }[];
 
@@ -117,7 +118,6 @@ export const SettingMenus = ({
         {
           icon: 'theme-light-dark',
           title: 'Change theme',
-          onPress: () => {},
         },
         {
           icon: 'logout',
@@ -157,7 +157,7 @@ export const SettingMenus = ({
   return (
     <SectionList
       contentContainerStyle={{
-        paddingBottom: '45%',
+        paddingBottom: '30%',
         paddingTop: '1%',
       }}
       canCancelContentTouches={true}
@@ -167,117 +167,129 @@ export const SettingMenus = ({
       bouncesZoom={true}
       alwaysBounceVertical={true}
       ListHeaderComponent={
-        <>
-          <View
-            style={{
-              marginVertical: '10%',
-              alignItems: 'center',
-            }}>
-            <Image
-              source={require('../../assets/images/bird1.png')}
+        <View style={CommonStyle(theme).commonContentView}>
+          <View style={CommonStyle(theme).commonContent}>
+            <View
               style={{
-                height: Dimensions.get('window').height * 0.31,
-                width: Dimensions.get('window').width * 0.565,
-              }}
-            />
-          </View>
-
-          <View
-            style={{
-              alignItems: 'center',
-              marginVertical: '10%',
-            }}>
-            <Text
-              style={{
-                fontWeight: 'bold',
-                fontSize: 25,
-                color: theme.text,
+                alignSelf: 'center',
+                height: Dimensions.get('window').height * 0.4,
+                width: Dimensions.get('window').width * 0.6,
               }}>
-              {tAppName}
-            </Text>
+              <Image
+                source={require('../../assets/images/bird1.png')}
+                style={{
+                  flex: 1,
+                  width: 'auto',
+                  height: 'auto',
+                  resizeMode: 'contain',
+                }}
+              />
+            </View>
+
+            <View
+              style={{
+                alignItems: 'center',
+                marginVertical: '4%',
+              }}>
+              <Text
+                style={{
+                  fontWeight: 'bold',
+                  fontSize: 25,
+                  color: theme.text,
+                }}>
+                {tAppName}
+              </Text>
+            </View>
           </View>
-        </>
+        </View>
       }
       sections={[...SettingMenusList]}
       keyExtractor={(item, index) => item.title + index}
       renderItem={({item, index}) => {
         return item.title !== 'Change theme' ? (
-          <TouchableOpacity
-            key={index}
-            activeOpacity={0.6}
-            onPress={item.onPress}>
-            <View
-              style={{
-                flexDirection: 'row',
-                marginTop: '5%',
-                alignItems: 'center',
-              }}>
-              <Icons
-                name={item.icon}
-                color={theme.blackWhiteIconColor}
-                size={25}
-              />
-              <Text
-                style={{
-                  marginLeft: 15,
-                  color: theme.text,
-                }}>
-                {item.title}
-              </Text>
+          <View style={CommonStyle(theme).commonContentView}>
+            <View style={CommonStyle(theme).commonContent}>
+              <TouchableOpacity
+                key={index}
+                activeOpacity={0.6}
+                onPress={item.onPress}>
+                <View
+                  style={{
+                    flexDirection: 'row',
+                    marginTop: '5%',
+                    alignItems: 'center',
+                  }}>
+                  <Icons
+                    name={item.icon}
+                    color={theme.blackWhiteIconColor}
+                    size={25}
+                  />
+                  <Text
+                    style={{
+                      marginLeft: 15,
+                      color: theme.text,
+                    }}>
+                    {item.title}
+                  </Text>
+                </View>
+              </TouchableOpacity>
             </View>
-          </TouchableOpacity>
+          </View>
         ) : (
-          <TouchableOpacity
-            key={index}
-            activeOpacity={0.75}
-            onPress={item.onPress}>
-            <View
-              style={{
-                flexDirection: 'row',
-                justifyContent: 'space-between',
-                alignItems: 'center',
-                marginTop: '5%',
-              }}>
+          <View style={CommonStyle(theme).commonContentView}>
+            <View style={CommonStyle(theme).commonContent}>
               <View
                 style={{
                   flexDirection: 'row',
+                  justifyContent: 'space-between',
                   alignItems: 'center',
+                  marginTop: '5%',
                 }}>
-                <Icons
-                  name={item.icon}
-                  color={theme.blackWhiteIconColor}
-                  size={25}
-                />
-                <Text
+                <View
                   style={{
-                    marginLeft: 15,
-                    color: theme.text,
+                    flexDirection: 'row',
+                    alignItems: 'center',
                   }}>
-                  {item.title}
-                </Text>
-              </View>
+                  <Icons
+                    name={item.icon}
+                    color={theme.blackWhiteIconColor}
+                    size={25}
+                  />
+                  <Text
+                    style={{
+                      marginLeft: 15,
+                      color: theme.text,
+                    }}>
+                    {item.title}
+                  </Text>
+                </View>
 
-              <MyCustomSwitch
-                theme={theme}
-                toggleSwitch={toggleSwitch}
-                isEnabled={isSwitchEnabled}
-              />
+                <MyCustomSwitch
+                  theme={theme}
+                  toggleSwitch={toggleSwitch}
+                  isEnabled={isSwitchEnabled}
+                />
+              </View>
             </View>
-          </TouchableOpacity>
+          </View>
         );
       }}
       renderSectionHeader={({section: {id, title}}) => (
-        <View
-          key={id}
-          style={{
-            paddingTop: '10%',
-          }}>
-          <Text
-            style={{
-              color: theme.greenBlueHeading,
-            }}>
-            {title}
-          </Text>
+        <View style={CommonStyle(theme).commonContentView}>
+          <View style={CommonStyle(theme).commonContent}>
+            <View
+              key={id}
+              style={{
+                paddingTop: '10%',
+              }}>
+              <Text
+                style={{
+                  color: theme.greenBlueHeading,
+                }}>
+                {title}
+              </Text>
+            </View>
+          </View>
         </View>
       )}
     />

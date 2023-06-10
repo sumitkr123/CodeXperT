@@ -7,6 +7,7 @@ import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {RootStackParamList} from '../../../models/navigationTypes';
 import {ScreenHeader} from '../../../components/other/ScreenHeader';
 import {
+  Dimensions,
   FlatList,
   Image,
   ScrollView,
@@ -14,11 +15,12 @@ import {
   Text,
   View,
 } from 'react-native';
-import {getUserInfo} from '../../../utils/helper';
+import {authorData, getUserInfo} from '../../../utils/helper';
 import {UserDataFromToken} from '../../../models/userModel';
-import Icons from 'react-native-vector-icons/MaterialIcons';
+import Icons from 'react-native-vector-icons/MaterialCommunityIcons';
 import {SinglePostType} from '../../../models/postModel';
 import {PostCard} from '../../../components/other/PostCards';
+import {COLORS} from '../../../utils/colors';
 
 export const ProfileScreen = ({
   route,
@@ -80,6 +82,8 @@ export const ProfileScreen = ({
     }
   }, [userPostsData]);
 
+  console.log(languageWiseUserPosts);
+
   return (
     <SafeAreaView style={CommonStyle(theme).commonContainer}>
       <ScreenHeader
@@ -87,7 +91,7 @@ export const ProfileScreen = ({
         navigation={navigation}
         headerTitle={'Profile'}
         headerTitleAlign="center"
-        leftIcon={'settings'}
+        leftIcon={'cog'}
         showBackButton={true}
       />
 
@@ -95,90 +99,80 @@ export const ProfileScreen = ({
         <View style={CommonStyle(theme).commonContent}>
           <ScrollView showsVerticalScrollIndicator={false}>
             {/* User Profile Data Header part  */}
-            {userData && userData[0] && (
-              <View
-                style={{
-                  flexDirection: 'row',
-                  marginVertical: '2%',
-                  alignItems: 'center',
-                }}>
-                <Image
-                  source={require('../../../assets/images/profile_bg.png')}
-                  style={{
-                    height: 140,
-                    width: 120,
-                  }}
-                />
-
+            <>
+              {userData && userData[0] && (
                 <View
                   style={{
-                    flexDirection: 'column',
-                    marginLeft: 15,
+                    flexDirection: 'row',
+                    marginVertical: '2%',
+                    alignItems: 'center',
                   }}>
-                  <Text
+                  <Image
+                    source={require('../../../assets/images/profile_bg.png')}
                     style={{
-                      color: theme.text,
-                      fontWeight: '500',
-                      fontSize: 23,
-                    }}>
-                    {userData[0]?.name}
-                  </Text>
-                  <Text
-                    style={{
-                      color: theme.text,
-                      fontWeight: '400',
-                      fontSize: 18,
-                    }}>
-                    {userData[0]?.email}
-                  </Text>
-                </View>
+                      height: 140,
+                      width: 120,
+                    }}
+                  />
 
-                <Icons
-                  name="edit"
-                  size={25}
-                  color={theme.blackWhiteIconColor}
-                  style={{
-                    position: 'absolute',
-                    right: 0,
-                    textDecorationStyle: 'solid',
-                    textDecorationColor: theme.text,
-                    textDecorationLine: 'underline',
-                  }}
-                />
-              </View>
-            )}
-
-            {/* Users posts created */}
-            {languageWiseUserPosts && (
-              <SectionList
-                scrollEnabled={false}
-                nestedScrollEnabled={true}
-                showsVerticalScrollIndicator={false}
-                contentContainerStyle={{
-                  paddingBottom: '25%',
-                }}
-                sections={languageWiseUserPosts}
-                keyExtractor={(item, index) => item.id + index}
-                ListHeaderComponent={
                   <View
                     style={{
-                      flex: 1,
-                      marginTop: '5%',
-                      marginBottom: '2%',
+                      flexDirection: 'column',
+                      marginLeft: 15,
                     }}>
                     <Text
                       style={{
                         color: theme.text,
-                        fontWeight: '400',
-                        fontSize: 20,
+                        fontWeight: '500',
+                        fontSize: 23,
                       }}>
-                      My Posts
+                      {userData[0]?.name}
+                    </Text>
+                    <Text
+                      style={{
+                        color: theme.text,
+                        fontWeight: '400',
+                        fontSize: 18,
+                      }}>
+                      {userData[0]?.email}
                     </Text>
                   </View>
-                }
-                renderSectionHeader={({section: {title, data, horizontal}}) => (
+
+                  <Icons
+                    name="pencil"
+                    size={25}
+                    color={theme.blackWhiteIconColor}
+                    style={{
+                      position: 'absolute',
+                      right: 0,
+                      textDecorationStyle: 'solid',
+                      textDecorationColor: theme.text,
+                      textDecorationLine: 'underline',
+                    }}
+                  />
+                </View>
+              )}
+
+              <View
+                style={{
+                  flex: 1,
+                  marginTop: '5%',
+                  marginBottom: '2%',
+                }}>
+                <Text
+                  style={{
+                    color: theme.text,
+                    fontWeight: '400',
+                    fontSize: 20,
+                  }}>
+                  My Posts
+                </Text>
+              </View>
+
+              {languageWiseUserPosts?.map(newitem => {
+                return (
                   <View
-                    key={title}
+                    key={newitem.title}
                     style={{
                       marginTop: '8%',
                     }}>
@@ -188,29 +182,27 @@ export const ProfileScreen = ({
                         fontSize: 20,
                         marginBottom: 10,
                       }}>
-                      {title}
+                      {newitem.title}
                     </Text>
 
-                    {horizontal ? (
+                    <View
+                      style={{
+                        flexDirection: 'column',
+                        height: Dimensions.get('window').height * 0.33,
+                      }}>
                       <FlatList
-                        horizontal={true}
+                        horizontal={newitem.horizontal}
                         showsHorizontalScrollIndicator={false}
-                        data={data}
+                        data={newitem.data}
                         renderItem={({item}) => {
                           return <PostCard item={item} />;
                         }}
                       />
-                    ) : null}
+                    </View>
                   </View>
-                )}
-                renderItem={({item, section}) => {
-                  if (section.horizontal) {
-                    return null;
-                  }
-                  return <PostCard item={item} />;
-                }}
-              />
-            )}
+                );
+              })}
+            </>
           </ScrollView>
         </View>
       </View>

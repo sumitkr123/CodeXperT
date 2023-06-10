@@ -7,6 +7,7 @@ import {
   ScrollView,
   Text,
   TouchableOpacity,
+  View,
 } from 'react-native';
 import {useAppSelector} from '../../redux/hooks';
 import {CommonStyle} from '../../assets/styles/commonStyle';
@@ -33,14 +34,22 @@ export const WelcomeScreen = ({
         }}
         canCancelContentTouches
         showsVerticalScrollIndicator={false}>
-        <Image
-          source={require('../../assets/images/bird1.png')}
+        <View
           style={{
-            height: Dimensions.get('window').height * 0.355,
-            width: Dimensions.get('window').width * 0.65,
-            marginVertical: '10%',
-          }}
-        />
+            height: Dimensions.get('window').height * 0.5,
+            width: Dimensions.get('window').width * 0.6,
+          }}>
+          <Image
+            source={require('../../assets/images/bird1.png')}
+            style={{
+              flex: 1,
+              width: 'auto',
+              height: 'auto',
+              resizeMode: 'contain',
+              marginVertical: '10%',
+            }}
+          />
+        </View>
         <Text
           style={[
             WelcomeStyle(theme).welcomeText,

@@ -82,6 +82,8 @@ export const CreateScreen = ({
       title: '',
       code: '',
       createdDate: '',
+      likes: 0,
+      likers: [],
     };
 
     let newDate = new Date().toISOString();
@@ -118,6 +120,7 @@ export const CreateScreen = ({
         showsVerticalScrollIndicator={false}
         contentContainerStyle={{
           paddingTop: 50,
+          paddingBottom: '30%',
         }}>
         <View style={CommonStyle(theme).commonContentView}>
           <View style={CommonStyle(theme).commonContent}>

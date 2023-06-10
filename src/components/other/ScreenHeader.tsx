@@ -1,5 +1,5 @@
 import {Text, View} from 'react-native';
-import Icons from 'react-native-vector-icons/MaterialIcons';
+import Icons from 'react-native-vector-icons/MaterialCommunityIcons';
 import {CommonStyle} from '../../assets/styles/commonStyle';
 import {Theme} from '../../models/themeTypes';
 import {BottomTabNavigationProp} from '@react-navigation/bottom-tabs';

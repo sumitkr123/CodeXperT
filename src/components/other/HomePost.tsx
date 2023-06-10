@@ -6,7 +6,7 @@ import {Theme} from '../../models/themeTypes';
 
 type HomePostProps = {
   author: string;
-  authorData: (author: string) => User | undefined;
+  authorData: () => User | undefined;
   theme: Theme;
   newitem: SinglePostType;
 };
@@ -35,19 +35,19 @@ export const HomePost = ({
             width: 50,
           }}
         />
-        {authorData(author) && authorData(author)?.name && (
+        {authorData() && (
           <Text
             style={{
               color: theme.text,
               fontWeight: '600',
               marginLeft: 5,
             }}>
-            {authorData(author)?.name}
+            {authorData()?.name}
           </Text>
         )}
       </View>
 
-      <PostCard item={newitem} showLanguage={true} />
+      <PostCard item={newitem} showLanguage={true} author={author} />
     </View>
   );
 };

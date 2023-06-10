@@ -38,11 +38,73 @@ export const PostsSlice = createSlice({
 
       return wholeNewdata;
     },
+    addLikePost: (
+      state,
+      action: PayloadAction<{payloadData: SinglePostType; authorName: string}>,
+    ) => {
+      const data = action.payload;
+
+      const wholeNewdata: PostType = JSON.parse(JSON.stringify(state));
+
+      const wholeAllPosts: {[key: string]: SinglePostType[]} = JSON.parse(
+        JSON.stringify(wholeNewdata.allPosts),
+      );
+
+      let newWholeAllPosts = {...wholeAllPosts};
+
+      for (let key in newWholeAllPosts) {
+        if (key === data.authorName) {
+          newWholeAllPosts[key] = newWholeAllPosts[key].map(item => {
+            if (item.id === data.payloadData.id) {
+              return data.payloadData;
+            } else {
+              return item;
+            }
+          });
+        }
+      }
+
+      return {
+        ...state,
+        allPosts: newWholeAllPosts,
+      };
+    },
+    removeLikePost: (
+      state,
+      action: PayloadAction<{payloadData: SinglePostType; authorName: string}>,
+    ) => {
+      const data = action.payload;
+
+      const wholeNewdata: PostType = JSON.parse(JSON.stringify(state));
+
+      const wholeAllPosts: {[key: string]: SinglePostType[]} = JSON.parse(
+        JSON.stringify(wholeNewdata.allPosts),
+      );
+
+      let newWholeAllPosts = {...wholeAllPosts};
+
+      for (let key in newWholeAllPosts) {
+        if (key === data.authorName) {
+          newWholeAllPosts[key] = newWholeAllPosts[key].map(item => {
+            if (item.id === data.payloadData.id) {
+              return data.payloadData;
+            } else {
+              return item;
+            }
+          });
+        }
+      }
+
+      return {
+        ...state,
+        allPosts: newWholeAllPosts,
+      };
+    },
   },
 });
 
 export const {actions, reducer} = PostsSlice;
 
-export const {addPost} = actions;
+export const {addPost, addLikePost, removeLikePost} = actions;
 
 export default reducer;

@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 
-import {SafeAreaView, View} from 'react-native';
+import {SafeAreaView} from 'react-native';
 import {useAppDispatch, useAppSelector} from '../../../redux/hooks';
 import {CommonStyle} from '../../../assets/styles/commonStyle';
 import {CompositeScreenProps} from '@react-navigation/native';
@@ -41,17 +41,13 @@ export const SettingScreen = ({
         leftIcon={'home'}
       />
 
-      <View style={CommonStyle(theme).commonContentView}>
-        <View style={CommonStyle(theme).commonContent}>
-          <SettingMenus
-            theme={theme}
-            isSwitchEnabled={isSwitchEnabled}
-            toggleSwitch={toggleSwitch}
-            route={route}
-            navigation={navigation}
-          />
-        </View>
-      </View>
+      <SettingMenus
+        theme={theme}
+        isSwitchEnabled={isSwitchEnabled}
+        toggleSwitch={toggleSwitch}
+        route={route}
+        navigation={navigation}
+      />
     </SafeAreaView>
   );
 };

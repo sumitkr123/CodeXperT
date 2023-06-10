@@ -13,6 +13,7 @@ import {tAppName} from '../../../utils/text_strings';
 import {SinglePostType} from '../../../models/postModel';
 import {ScreenHeader} from '../../../components/other/ScreenHeader';
 import {HomePost} from '../../../components/other/HomePost';
+import {authorData} from '../../../utils/helper';
 
 export const HomeScreen = ({
   route,
@@ -51,10 +52,6 @@ export const HomeScreen = ({
     }, []),
   );
 
-  const authorData = useCallback((author: string) => {
-    return Object.values(users).find(users => users.email === author);
-  }, []);
-
   return (
     <SafeAreaView style={CommonStyle(theme).commonContainer}>
       <ScreenHeader theme={theme} headerTitle={'Home'} />
@@ -77,7 +74,9 @@ export const HomeScreen = ({
                               key={index}
                               theme={theme}
                               author={author}
-                              authorData={authorData}
+                              authorData={() => {
+                                return authorData(author, users);
+                              }}
                               newitem={newitem}
                             />
                           );

@@ -5,6 +5,8 @@ export type SinglePostType = {
   title: string;
   code: string;
   createdDate: string;
+  likes: number;
+  likers: string[];
 };
 
 export type PostType = {

@@ -8,6 +8,7 @@ import {
   RootStackParamList,
 } from '../../models/navigationTypes';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
+import {COLORS} from '../../utils/colors';
 
 type ScreenHeaderProps = {
   theme: Theme;
@@ -105,10 +106,9 @@ export const ScreenHeader = ({
         {headerRight && (
           <View
             style={{
-              width: '100%',
+              flex: 1,
               flexDirection: 'row',
               justifyContent: 'flex-end',
-              backgroundColor: 'green',
             }}>
             {headerRight.map((icons, index) => {
               return (
@@ -116,8 +116,11 @@ export const ScreenHeader = ({
                   key={index}
                   name={icons.icon}
                   color={theme.blackWhiteIconColor}
-                  style={CommonStyle(theme).commonBackIconStyle}
-                  onPress={() => icons.onPress}
+                  style={[
+                    CommonStyle(theme).commonBackIconStyle,
+                    {marginLeft: 5, paddingLeft: 0},
+                  ]}
+                  onPress={icons.onPress}
                 />
               );
             })}

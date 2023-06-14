@@ -75,7 +75,7 @@ export const FormInput = ({
         <TextInput
           ref={inputRef}
           keyboardType="phone-pad"
-          placeholder={placeholder}
+          placeholder={focused ? placeholder : ''}
           placeholderTextColor={theme.text}
           onFocus={() => setFocused(true)}
           onEndEditing={() => setFocused(false)}
@@ -98,7 +98,7 @@ export const FormInput = ({
         <TextInput
           ref={inputRef}
           secureTextEntry={true}
-          placeholder={placeholder}
+          placeholder={focused ? placeholder : ''}
           placeholderTextColor={theme.text}
           onFocus={() => setFocused(true)}
           onEndEditing={() => setFocused(false)}
@@ -121,7 +121,7 @@ export const FormInput = ({
         <TextInput
           ref={inputRef}
           multiline={true}
-          placeholder={placeholder}
+          placeholder={focused ? placeholder : ''}
           placeholderTextColor={theme.text}
           onFocus={() => setFocused(true)}
           onEndEditing={() => setFocused(false)}
@@ -143,7 +143,7 @@ export const FormInput = ({
       fieldblock = (
         <TextInput
           ref={inputRef}
-          placeholder={placeholder}
+          placeholder={focused ? placeholder : ''}
           placeholderTextColor={theme.text}
           onFocus={() => setFocused(true)}
           onEndEditing={() => setFocused(false)}
@@ -162,6 +162,20 @@ export const FormInput = ({
       break;
   }
 
+  const [animState, setAnimstate] = useState({
+    xoffset: 48,
+    yoffset: 18,
+    delta: 30,
+  });
+
+  const moveTitleToUp = () => {
+    setAnimstate({
+      ...animState,
+      xoffset: animState.xoffset - animState.delta,
+      yoffset: animState.yoffset - animState.delta,
+    });
+  };
+
   return (
     <>
       <TouchableWithoutFeedback
@@ -169,10 +183,40 @@ export const FormInput = ({
           Keyboard.dismiss();
           setFocused(false);
         }}>
-        <View style={FormComponentStyle(theme).mainInputView}>
-          <Text style={FormComponentStyle(theme).label}>
+        <View
+          onTouchEnd={() => {
+            if (!value) {
+              if (animState.yoffset < 18) {
+                setAnimstate({
+                  xoffset: 48,
+                  yoffset: 18,
+                  delta: 30,
+                });
+                setFocused(false);
+              } else {
+                moveTitleToUp();
+                setFocused(true);
+              }
+            }
+          }}
+          style={FormComponentStyle(theme).mainInputView}>
+          <Text
+            style={[
+              FormComponentStyle(theme).label,
+              {
+                position: 'absolute',
+                left: animState.xoffset,
+                top: animState.yoffset,
+              },
+            ]}>
             {label}
-            <Text style={{color: 'red'}}> *</Text>
+            <Text
+              style={{
+                color: 'red',
+              }}>
+              {' '}
+              *
+            </Text>
           </Text>
           <View
             style={[

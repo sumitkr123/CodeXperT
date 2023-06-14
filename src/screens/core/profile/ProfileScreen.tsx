@@ -7,23 +7,19 @@ import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {RootStackParamList} from '../../../models/navigationTypes';
 import {ScreenHeader} from '../../../components/other/ScreenHeader';
 import {
-  Dimensions,
   FlatList,
   Image,
   ScrollView,
-  SectionList,
   Text,
   View,
 } from 'react-native';
-import {authorData, getUserInfo} from '../../../utils/helper';
+import {getUserInfo} from '../../../utils/helper';
 import {UserDataFromToken} from '../../../models/userModel';
 import Icons from 'react-native-vector-icons/MaterialCommunityIcons';
 import {SinglePostType} from '../../../models/postModel';
 import {PostCard} from '../../../components/other/PostCards';
-import {COLORS} from '../../../utils/colors';
 
 export const ProfileScreen = ({
-  route,
   navigation,
 }: NativeStackScreenProps<
   RootStackParamList,
@@ -44,7 +40,7 @@ export const ProfileScreen = ({
 
     setUserData(getData);
     setUserPostsData(getPostsData);
-  }, []);
+  }, [allPosts]);
 
   const languageWiseUserPosts = useMemo(() => {
     if (userPostsData) {
@@ -82,8 +78,6 @@ export const ProfileScreen = ({
     }
   }, [userPostsData]);
 
-  console.log(languageWiseUserPosts);
-
   return (
     <SafeAreaView style={CommonStyle(theme).commonContainer}>
       <ScreenHeader
@@ -98,7 +92,6 @@ export const ProfileScreen = ({
       <View style={CommonStyle(theme).commonContentView}>
         <View style={CommonStyle(theme).commonContent}>
           <ScrollView showsVerticalScrollIndicator={false}>
-            {/* User Profile Data Header part  */}
             <>
               {userData && userData[0] && (
                 <View
@@ -185,20 +178,19 @@ export const ProfileScreen = ({
                       {newitem.title}
                     </Text>
 
-                    <View
-                      style={{
-                        flexDirection: 'column',
-                        height: Dimensions.get('window').height * 0.33,
-                      }}>
-                      <FlatList
-                        horizontal={newitem.horizontal}
-                        showsHorizontalScrollIndicator={false}
-                        data={newitem.data}
-                        renderItem={({item}) => {
-                          return <PostCard item={item} />;
-                        }}
-                      />
-                    </View>
+                    <FlatList
+                      contentContainerStyle={{
+                        width: '100%',
+                      }}
+                      horizontal={newitem.horizontal}
+                      showsHorizontalScrollIndicator={false}
+                      data={newitem.data}
+                      renderItem={({item}) => {
+                        return (
+                          <PostCard item={item} author={userData?.[0].email} />
+                        );
+                      }}
+                    />
                   </View>
                 );
               })}

@@ -1,4 +1,4 @@
-import React, {useCallback} from 'react';
+import React from 'react';
 
 import {Alert, SafeAreaView, ScrollView, Text, View} from 'react-native';
 
@@ -13,7 +13,6 @@ import {tAppName} from '../../../utils/text_strings';
 import {SinglePostType} from '../../../models/postModel';
 import {ScreenHeader} from '../../../components/other/ScreenHeader';
 import {HomePost} from '../../../components/other/HomePost';
-import {authorData} from '../../../utils/helper';
 
 export const HomeScreen = ({
   route,
@@ -54,7 +53,20 @@ export const HomeScreen = ({
 
   return (
     <SafeAreaView style={CommonStyle(theme).commonContainer}>
-      <ScreenHeader theme={theme} headerTitle={'Home'} />
+      <ScreenHeader
+        theme={theme}
+        headerTitle={'Home'}
+        // headerRight={[
+        //   {
+        //     icon: 'home',
+        //     onPress: () => {},
+        //   },
+        //   {
+        //     icon: 'home',
+        //     onPress: () => {},
+        //   },
+        // ]}
+      />
       <View style={CommonStyle(theme).commonContentView}>
         <View style={CommonStyle(theme).commonContent}>
           {Object.keys(allPosts).length > 0 ? (
@@ -75,7 +87,9 @@ export const HomeScreen = ({
                               theme={theme}
                               author={author}
                               authorData={() => {
-                                return authorData(author, users);
+                                return Object.values(users).find(
+                                  users => users.email === author,
+                                );
                               }}
                               newitem={newitem}
                             />

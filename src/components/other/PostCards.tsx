@@ -15,13 +15,19 @@ type PostCardProps = {
 };
 
 export const PostCard = ({item, showLanguage, author}: PostCardProps) => {
-  const [liked, setLiked] = useState<boolean>(item.likers.includes(author!));
-
   const theme = useAppSelector(state => state.theme);
 
   const [showLikeList, setShowLikeList] = useState<boolean>(false);
 
+  const [liked, setLiked] = useState<boolean>();
+
   const dispatch = useAppDispatch();
+
+  useMemo(async () => {
+    let newData: [UserDataFromToken] = await getUserInfo();
+
+    setLiked(item.likers.includes(newData[0].email));
+  }, [item]);
 
   useMemo(async () => {
     let getData: [UserDataFromToken] = await getUserInfo();
@@ -52,6 +58,7 @@ export const PostCard = ({item, showLanguage, author}: PostCardProps) => {
           newInnerItem => newInnerItem !== getData[0].email,
         );
         newItem.likes -= 1;
+
         dispatch(removeLikePost({payloadData: newItem, authorName: author!}));
         return;
       }
@@ -59,11 +66,14 @@ export const PostCard = ({item, showLanguage, author}: PostCardProps) => {
   }, [liked]);
 
   return (
-    <>
+    <View
+      style={{
+        flexDirection: 'column',
+        width: '100%',
+      }}>
       <View
         style={{
           backgroundColor: COLORS.grey,
-          width: Dimensions.get('window').width * 0.65,
           height: Dimensions.get('window').height * 0.3,
           borderWidth: 1,
           marginTop: 8,
@@ -118,27 +128,31 @@ export const PostCard = ({item, showLanguage, author}: PostCardProps) => {
         </ScrollView>
       </View>
 
-      <Icons
-        name={
-          liked || item.likers.includes(author!) ? 'heart' : 'heart-outline'
-        }
-        size={25}
-        color={
-          liked || item.likers.includes(author!) ? COLORS.red : COLORS.black
-        }
-        onPress={() => {
-          setLiked(liked === true ? false : true);
-        }}
+      <View
         style={{
+          flexDirection: 'column',
           marginTop: '3%',
-        }}
-      />
-      <Text style={{color: theme.text}}>{item.likes}</Text>
-      <Text
-        onPress={() => setShowLikeList(true)}
-        style={{color: COLORS.blue, textDecorationLine: 'underline'}}>
-        View All Likes
-      </Text>
+        }}>
+        <Icons
+          name={liked ? 'heart' : 'heart-outline'}
+          size={25}
+          color={
+            liked ? COLORS.red : theme.isDark ? COLORS.white : COLORS.black
+          }
+          onPress={() => {
+            setLiked(liked === true ? false : true);
+          }}
+        />
+        <Text style={{color: theme.text}}>{item.likes}</Text>
+        <Text
+          onPress={() => setShowLikeList(true)}
+          style={{
+            color: theme.isDark ? COLORS.green : COLORS.blue,
+            textDecorationLine: 'underline',
+          }}>
+          View All Likes
+        </Text>
+      </View>
 
       <Modal
         animationType="slide"
@@ -177,13 +191,10 @@ export const PostCard = ({item, showLanguage, author}: PostCardProps) => {
                     <View
                       key={item + index}
                       style={{
-                        flex: 1,
-                        paddingLeft: 5,
-                        height: 50,
+                        marginVertical: 8,
                       }}>
                       <Text
                         style={{
-                          width: '92%',
                           color: COLORS.black,
                         }}>
                         {item}
@@ -196,6 +207,6 @@ export const PostCard = ({item, showLanguage, author}: PostCardProps) => {
           </View>
         </ScrollView>
       </Modal>
-    </>
+    </View>
   );
 };

@@ -61,7 +61,7 @@ export const Register = ({
           paddingBottom: '10%',
           paddingTop: '4%',
         }}
-        canCancelContentTouches={true}
+        // canCancelContentTouches={true}
         showsVerticalScrollIndicator={false}>
         <View style={CommonStyle(theme).commonContentView}>
           <View style={CommonStyle(theme).commonContent}>

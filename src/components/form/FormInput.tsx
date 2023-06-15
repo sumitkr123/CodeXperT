@@ -1,7 +1,9 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 
 import {
+  Animated,
   Dimensions,
+  Easing,
   Keyboard,
   Modal,
   ScrollView,
@@ -31,6 +33,21 @@ export const FormInput = ({
   const [focused, setFocused] = useState<boolean>(false);
 
   const inputRef = useRef<any>('');
+
+  const focusAnim = useRef(new Animated.Value(0)).current;
+
+  useEffect(() => {
+    Animated.timing(focusAnim, {
+      // toValue: focused ? 1 : 0,
+      toValue: focused || !!value ? 1 : 0,
+      // I took duration and easing values
+      // from material.io demo page
+      duration: 150,
+      easing: Easing.bezier(0.4, 0, 0.2, 1),
+      // we'll come back to this later
+      useNativeDriver: false,
+    }).start();
+  }, [focusAnim, focused, value]);
 
   let fieldblock = <></>;
 
@@ -83,10 +100,11 @@ export const FormInput = ({
           onChangeText={value => {
             onChange(value);
             inputRef.current.value = value;
-          }}
-          onBlur={value => {
-            onBlur(value);
-            inputRef.current.value = value;
+            if (value === '') {
+              setFocused(false);
+            } else {
+              setFocused(true);
+            }
           }}
           value={value}
         />
@@ -106,10 +124,11 @@ export const FormInput = ({
           onChangeText={value => {
             onChange(value);
             inputRef.current.value = value;
-          }}
-          onBlur={value => {
-            onBlur(value);
-            inputRef.current.value = value;
+            if (value === '') {
+              setFocused(false);
+            } else {
+              setFocused(true);
+            }
           }}
           value={value}
         />
@@ -129,10 +148,11 @@ export const FormInput = ({
           onChangeText={value => {
             onChange(value);
             inputRef.current.value = value;
-          }}
-          onBlur={value => {
-            onBlur(value);
-            inputRef.current.value = value;
+            if (value === '') {
+              setFocused(false);
+            } else {
+              setFocused(true);
+            }
           }}
           value={value}
         />
@@ -151,30 +171,17 @@ export const FormInput = ({
           onChangeText={value => {
             onChange(value);
             inputRef.current.value = value;
-          }}
-          onBlur={value => {
-            onBlur(value);
-            inputRef.current.value = value;
+            if (value === '') {
+              setFocused(false);
+            } else {
+              setFocused(true);
+            }
           }}
           value={value}
         />
       );
       break;
   }
-
-  const [animState, setAnimstate] = useState({
-    xoffset: 48,
-    yoffset: 18,
-    delta: 30,
-  });
-
-  const moveTitleToUp = () => {
-    setAnimstate({
-      ...animState,
-      xoffset: animState.xoffset - animState.delta,
-      yoffset: animState.yoffset - animState.delta,
-    });
-  };
 
   return (
     <>
@@ -183,41 +190,7 @@ export const FormInput = ({
           Keyboard.dismiss();
           setFocused(false);
         }}>
-        <View
-          onTouchEnd={() => {
-            if (!value) {
-              if (animState.yoffset < 18) {
-                setAnimstate({
-                  xoffset: 48,
-                  yoffset: 18,
-                  delta: 30,
-                });
-                setFocused(false);
-              } else {
-                moveTitleToUp();
-                setFocused(true);
-              }
-            }
-          }}
-          style={FormComponentStyle(theme).mainInputView}>
-          <Text
-            style={[
-              FormComponentStyle(theme).label,
-              {
-                position: 'absolute',
-                left: animState.xoffset,
-                top: animState.yoffset,
-              },
-            ]}>
-            {label}
-            <Text
-              style={{
-                color: 'red',
-              }}>
-              {' '}
-              *
-            </Text>
-          </Text>
+        <View style={[FormComponentStyle(theme).mainInputView]}>
           <View
             style={[
               FormComponentStyle(theme).inputView,
@@ -230,6 +203,8 @@ export const FormInput = ({
                   ? theme.success
                   : focused && inputRef.current.value
                   ? theme.success
+                  : focused
+                  ? theme.primary
                   : theme.textInputBorderColor,
               },
               {
@@ -249,6 +224,8 @@ export const FormInput = ({
                     ? theme.error
                     : focused && inputRef.current.value
                     ? theme.success
+                    : focused
+                    ? theme.primary
                     : theme.iconColor
                 }
                 size={25}
@@ -259,6 +236,33 @@ export const FormInput = ({
             )}
 
             {fieldblock}
+            <Animated.View
+              style={{
+                position: 'absolute',
+                left: 40,
+                paddingHorizontal: 8,
+                backgroundColor: 'white',
+
+                top: focusAnim.interpolate({
+                  inputRange: [0, 1],
+                  outputRange: [24, -10],
+                }),
+              }}>
+              <Text
+                style={{
+                  fontFamily: 'Avenir-Heavy',
+                  fontSize: 16,
+                  color: error
+                    ? theme.error
+                    : focused && inputRef.current.value
+                    ? theme.success
+                    : focused
+                    ? theme.primary
+                    : theme.text,
+                }}>
+                {label}
+              </Text>
+            </Animated.View>
           </View>
           {error && <Text style={{color: 'red', fontSize: 16}}>{error}</Text>}
         </View>

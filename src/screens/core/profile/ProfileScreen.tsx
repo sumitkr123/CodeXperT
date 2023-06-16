@@ -1,18 +1,12 @@
 import React, {useMemo, useState} from 'react';
 
 import {SafeAreaView} from 'react-native-safe-area-context';
-import {CommonStyle} from '../../../assets/styles/commonStyle';
+import {CommonStyle} from '../../../../assets/styles/commonStyle';
 import {useAppSelector} from '../../../redux/hooks';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {RootStackParamList} from '../../../models/navigationTypes';
 import {ScreenHeader} from '../../../components/other/ScreenHeader';
-import {
-  FlatList,
-  Image,
-  ScrollView,
-  Text,
-  View,
-} from 'react-native';
+import {FlatList, Image, ScrollView, Text, View} from 'react-native';
 import {getUserInfo} from '../../../utils/helper';
 import {UserDataFromToken} from '../../../models/userModel';
 import Icons from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -101,7 +95,7 @@ export const ProfileScreen = ({
                     alignItems: 'center',
                   }}>
                   <Image
-                    source={require('../../../assets/images/profile_bg.png')}
+                    source={require('../../../../assets/images/profile_bg.png')}
                     style={{
                       height: 140,
                       width: 120,

@@ -1,5 +1,5 @@
 import {Dimensions, StyleSheet} from 'react-native';
-import {Theme} from '../../models/themeTypes';
+import {Theme} from '../../src/models/themeTypes';
 
 export const CommonStyle = (theme?: Theme) =>
   StyleSheet.create({

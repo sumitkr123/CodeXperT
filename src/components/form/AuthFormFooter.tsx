@@ -5,7 +5,7 @@ import {
   View,
 } from 'react-native';
 import {Theme} from '../../models/themeTypes';
-import {CommonStyle} from '../../assets/styles/commonStyle';
+import {CommonStyle} from '../../../assets/styles/commonStyle';
 
 type AuthFormFooterProps = {
   theme: Theme;

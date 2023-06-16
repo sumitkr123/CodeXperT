@@ -10,7 +10,7 @@ import {User} from '../../../models/userModel';
 import {LoginValidationSchema} from '../../../validations/schema';
 import {ScrollView, View} from 'react-native';
 
-import {CommonStyle} from '../../../assets/styles/commonStyle';
+import {CommonStyle} from '../../../../assets/styles/commonStyle';
 import {LoginFormInputs} from '../../../utils/constants';
 
 import {NativeStackScreenProps} from '@react-navigation/native-stack';

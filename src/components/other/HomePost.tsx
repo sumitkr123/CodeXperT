@@ -29,7 +29,7 @@ export const HomePost = ({
           alignItems: 'center',
         }}>
         <Image
-          source={require('../../assets/images/profile_bg.png')}
+          source={require('../../../assets/images/profile_bg.png')}
           style={{
             height: 50,
             width: 50,

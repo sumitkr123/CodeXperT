@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 
 import {SafeAreaView} from 'react-native';
 import {useAppDispatch, useAppSelector} from '../../../redux/hooks';
-import {CommonStyle} from '../../../assets/styles/commonStyle';
+import {CommonStyle} from '../../../../assets/styles/commonStyle';
 import {CompositeScreenProps} from '@react-navigation/native';
 import {
   RootBottomNavParamList,

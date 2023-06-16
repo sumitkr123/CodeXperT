@@ -10,7 +10,7 @@ import {View} from 'react-native';
 import {RootBottomNavParamList} from '../../models/navigationTypes';
 import {COLORS} from '../../utils/colors';
 import {useAppSelector} from '../../redux/hooks';
-import {BottomNavStyle} from '../../assets/styles/screens/bottomNavStyle';
+import {BottomNavStyle} from '../../../assets/styles/screens/bottomNavStyle';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 
 const BottomTabs = createBottomTabNavigator<RootBottomNavParamList>();

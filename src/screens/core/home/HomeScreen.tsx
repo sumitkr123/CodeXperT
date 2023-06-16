@@ -2,7 +2,7 @@ import React from 'react';
 
 import {Alert, SafeAreaView, ScrollView, Text, View} from 'react-native';
 
-import {CommonStyle} from '../../../assets/styles/commonStyle';
+import {CommonStyle} from '../../../../assets/styles/commonStyle';
 
 import {useAppSelector} from '../../../redux/hooks';
 import {RootBottomNavParamList} from '../../../models/navigationTypes';

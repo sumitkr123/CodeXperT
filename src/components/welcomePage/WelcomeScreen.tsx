@@ -10,10 +10,10 @@ import {
   View,
 } from 'react-native';
 import {useAppSelector} from '../../redux/hooks';
-import {CommonStyle} from '../../assets/styles/commonStyle';
+import {CommonStyle} from '../../../assets/styles/commonStyle';
 import {RootStackParamList} from '../../models/navigationTypes';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {WelcomeStyle} from '../../assets/styles/screens/welcomeScreenStyle';
+import {WelcomeStyle} from '../../../assets/styles/screens/welcomeScreenStyle';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {tWelcomeTitle} from '../../utils/text_strings';
 
@@ -40,7 +40,7 @@ export const WelcomeScreen = ({
             width: Dimensions.get('window').width * 0.6,
           }}>
           <Image
-            source={require('../../assets/images/bird1.png')}
+            source={require('../../../assets/images/bird1.png')}
             style={{
               flex: 1,
               width: 'auto',

@@ -1,6 +1,6 @@
 import {Dimensions, StyleSheet} from 'react-native';
-import {Theme} from '../../../models/themeTypes';
-import {COLORS} from '../../../utils/colors';
+import {Theme} from '../../../src/models/themeTypes';
+import {COLORS} from '../../../src/utils/colors';
 
 export const BottomNavStyle = (
   theme: Theme,

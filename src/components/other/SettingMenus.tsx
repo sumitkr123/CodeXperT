@@ -22,7 +22,7 @@ import {
 } from '../../models/navigationTypes';
 import {BottomTabNavigationProp} from '@react-navigation/bottom-tabs';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
-import {CommonStyle} from '../../assets/styles/commonStyle';
+import {CommonStyle} from '../../../assets/styles/commonStyle';
 
 type MyCustomSettingProps = {
   theme: Theme;
@@ -176,7 +176,7 @@ export const SettingMenus = ({
                 width: Dimensions.get('window').width * 0.6,
               }}>
               <Image
-                source={require('../../assets/images/bird1.png')}
+                source={require('../../../assets/images/bird1.png')}
                 style={{
                   flex: 1,
                   width: 'auto',

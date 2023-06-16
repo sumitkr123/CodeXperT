@@ -15,7 +15,7 @@ import {Text} from 'react-native';
 import Icons from 'react-native-vector-icons/MaterialCommunityIcons';
 import {TextInput} from 'react-native';
 import {useRef, useState} from 'react';
-import {FormComponentStyle} from '../../assets/styles/components/formComponentsStyle';
+import {FormComponentStyle} from '../../../assets/styles/components/formComponentsStyle';
 import {COLORS} from '../../utils/colors';
 
 export const FormInput = ({
@@ -236,33 +236,35 @@ export const FormInput = ({
             )}
 
             {fieldblock}
-            <Animated.View
-              style={{
-                position: 'absolute',
-                left: 40,
-                paddingHorizontal: 8,
-                backgroundColor: 'white',
-
-                top: focusAnim.interpolate({
-                  inputRange: [0, 1],
-                  outputRange: [24, -10],
-                }),
-              }}>
-              <Text
+            {type !== 'select' && (
+              <Animated.View
                 style={{
-                  fontFamily: 'Avenir-Heavy',
-                  fontSize: 16,
-                  color: error
-                    ? theme.error
-                    : focused && inputRef.current.value
-                    ? theme.success
-                    : focused
-                    ? theme.primary
-                    : theme.text,
+                  position: 'absolute',
+                  left: 40,
+                  paddingHorizontal: 8,
+                  backgroundColor: theme.background,
+
+                  top: focusAnim.interpolate({
+                    inputRange: [0, 1],
+                    outputRange: [24, -10],
+                  }),
                 }}>
-                {label}
-              </Text>
-            </Animated.View>
+                <Text
+                  style={{
+                    fontFamily: 'Avenir-Heavy',
+                    fontSize: 16,
+                    color: error
+                      ? theme.error
+                      : focused && inputRef.current.value
+                      ? theme.success
+                      : focused
+                      ? theme.primary
+                      : theme.text,
+                  }}>
+                  {label}
+                </Text>
+              </Animated.View>
+            )}
           </View>
           {error && <Text style={{color: 'red', fontSize: 16}}>{error}</Text>}
         </View>

@@ -22,6 +22,7 @@ export type UserDataFromToken = {
 };
 
 export type TypeLoginValidationSchema = {
+  [key: string]: any;
   email: string;
   pass: string;
 };

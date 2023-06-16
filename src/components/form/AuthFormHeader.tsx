@@ -21,7 +21,7 @@ export const AuthFormHeader = ({
           width: Dimensions.get('window').width * 0.4,
         }}>
         <Image
-          source={require('../../assets/images/bird1.png')}
+          source={require('../../../assets/images/bird1.png')}
           style={{
             flex: 1,
             width: 'auto',

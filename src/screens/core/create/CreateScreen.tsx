@@ -7,7 +7,7 @@ import {
   Text,
   TouchableOpacity,
 } from 'react-native';
-import {CommonStyle} from '../../../assets/styles/commonStyle';
+import {CommonStyle} from '../../../../assets/styles/commonStyle';
 import {useAppDispatch, useAppSelector} from '../../../redux/hooks';
 import {View} from 'react-native';
 import {CompositeScreenProps, useFocusEffect} from '@react-navigation/native';

@@ -25,8 +25,8 @@ import {CodeForm} from '../../../models/codeType';
 import {addPost} from '../../../redux/ducks/posts_slice';
 import {SinglePostType} from '../../../models/postModel';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {ScreenHeader} from '../../../components/other/ScreenHeader';
-import {FormInputsCreator} from '../../../components/form/FormInputsCreator';
+import {ScreenHeader} from '../../../components/ui/Header/ScreenHeader';
+import {FormInputsCreator} from '../../../components/ui/Form/FormInputsCreator';
 
 const SeeUserInfo = async () => {
   const currentUserData = await AsyncStorage.getItem('auth_token');

@@ -1,6 +1,6 @@
 import {Dimensions, Text, View} from 'react-native';
 import {Image} from 'react-native';
-import {Theme} from '../../models/themeTypes';
+import {Theme} from '../../../models/themeTypes';
 
 type AuthFormHeaderProps = {
   theme: Theme;
@@ -21,7 +21,7 @@ export const AuthFormHeader = ({
           width: Dimensions.get('window').width * 0.4,
         }}>
         <Image
-          source={require('../../../assets/images/bird1.png')}
+          source={require('../../../../assets/images/bird1.png')}
           style={{
             flex: 1,
             width: 'auto',

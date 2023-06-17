@@ -1,6 +1,6 @@
 import {Switch} from 'react-native';
-import {Theme} from '../../models/themeTypes';
-import {COLORS} from '../../utils/colors';
+import {Theme} from '../../../models/themeTypes';
+import {COLORS} from '../../../utils/colors';
 import React from 'react';
 
 type MyCustomSwichProps = {

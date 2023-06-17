@@ -1,7 +1,7 @@
 import {Control, Controller, FieldErrors, FieldValues} from 'react-hook-form';
 import {FormInput} from './FormInput';
-import {Theme} from '../../models/themeTypes';
-import {LanguageOptionsTypes} from '../../models/formInputTypes';
+import {Theme} from '../../../models/themeTypes';
+import {LanguageOptionsTypes} from '../../../models/formInputTypes';
 
 type FormInputsCreatorProps = {
   theme: Theme;

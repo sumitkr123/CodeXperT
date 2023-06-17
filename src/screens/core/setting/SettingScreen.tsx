@@ -11,9 +11,9 @@ import {
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {BottomTabScreenProps} from '@react-navigation/bottom-tabs';
 
-import {SettingMenus} from '../../../components/other/SettingMenus';
+import {SettingMenus} from '../../../components/features/SettingMenus';
 import {changeTheme} from '../../../redux/ducks/theme_slice';
-import {ScreenHeader} from '../../../components/other/ScreenHeader';
+import {ScreenHeader} from '../../../components/ui/Header/ScreenHeader';
 
 export const SettingScreen = ({
   route,

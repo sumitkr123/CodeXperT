@@ -11,8 +11,8 @@ import {useFocusEffect} from '@react-navigation/native';
 import {BackHandler} from 'react-native';
 import {tAppName} from '../../../utils/text_strings';
 import {SinglePostType} from '../../../models/postModel';
-import {ScreenHeader} from '../../../components/other/ScreenHeader';
-import {HomePost} from '../../../components/other/HomePost';
+import {ScreenHeader} from '../../../components/ui/Header/ScreenHeader';
+import {HomePost} from '../../../components/features/HomePost';
 
 export const HomeScreen = ({
   route,
@@ -67,14 +67,14 @@ export const HomeScreen = ({
         //   },
         // ]}
       />
-      <View style={CommonStyle(theme).commonContentView}>
-        <View style={CommonStyle(theme).commonContent}>
-          {Object.keys(allPosts).length > 0 ? (
-            <ScrollView
-              showsVerticalScrollIndicator={false}
-              contentContainerStyle={{
-                paddingBottom: '40%',
-              }}>
+      {Object.keys(allPosts).length > 0 ? (
+        <ScrollView
+          showsVerticalScrollIndicator={false}
+          contentContainerStyle={{
+            paddingBottom: '25%',
+          }}>
+          <View style={CommonStyle(theme).commonContentView}>
+            <View style={CommonStyle(theme).commonContent}>
               {Object.keys(allPosts).map((author: string) => {
                 return (
                   author && (
@@ -100,8 +100,12 @@ export const HomeScreen = ({
                   )
                 );
               })}
-            </ScrollView>
-          ) : (
+            </View>
+          </View>
+        </ScrollView>
+      ) : (
+        <View style={CommonStyle(theme).commonContentView}>
+          <View style={CommonStyle(theme).commonContent}>
             <Text
               style={{
                 color: theme.text,
@@ -109,9 +113,9 @@ export const HomeScreen = ({
               }}>
               Be the first one to create The Code Snippet..!
             </Text>
-          )}
+          </View>
         </View>
-      </View>
+      )}
     </SafeAreaView>
   );
 };

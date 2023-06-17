@@ -1,12 +1,12 @@
 import {Dimensions, Modal, ScrollView, Text, View} from 'react-native';
-import {COLORS} from '../../utils/colors';
-import {SinglePostType} from '../../models/postModel';
+import {COLORS} from '../../../utils/colors';
+import {SinglePostType} from '../../../models/postModel';
 import Icons from 'react-native-vector-icons/MaterialCommunityIcons';
 import {useMemo, useState} from 'react';
-import {useAppDispatch, useAppSelector} from '../../redux/hooks';
-import {addLikePost, removeLikePost} from '../../redux/ducks/posts_slice';
-import {UserDataFromToken} from '../../models/userModel';
-import {getUserInfo} from '../../utils/helper';
+import {useAppDispatch, useAppSelector} from '../../../redux/hooks';
+import {addLikePost, removeLikePost} from '../../../redux/ducks/posts_slice';
+import {UserDataFromToken} from '../../../models/userModel';
+import {getUserInfo} from '../../../utils/helper';
 
 type PostCardProps = {
   item: SinglePostType;
@@ -69,7 +69,7 @@ export const PostCard = ({item, showLanguage, author}: PostCardProps) => {
     <View
       style={{
         flexDirection: 'column',
-        width: '100%',
+        // width: '100%',
       }}>
       <View
         style={{
@@ -98,6 +98,7 @@ export const PostCard = ({item, showLanguage, author}: PostCardProps) => {
               Language :- {item.language}
             </Text>
           )}
+
           <Text
             style={{
               color: COLORS.black,
@@ -117,6 +118,7 @@ export const PostCard = ({item, showLanguage, author}: PostCardProps) => {
             }}>
             Code :- {'\n'}
           </Text>
+
           <Text
             style={{
               color: COLORS.black,
@@ -154,29 +156,26 @@ export const PostCard = ({item, showLanguage, author}: PostCardProps) => {
         </Text>
       </View>
 
-      <Modal
-        animationType="slide"
-        transparent
-        visible={showLikeList}
-        presentationStyle="overFullScreen"
-        onDismiss={() => setShowLikeList(false)}>
-        <ScrollView
-          contentContainerStyle={{
-            flex: 1,
-            alignSelf: 'center',
-            position: 'absolute',
-            marginVertical: '30%',
-            elevation: 5,
-            height: Dimensions.get('window').height * 0.6,
-            width: Dimensions.get('window').width * 0.8,
-            backgroundColor: '#fff',
-            borderRadius: 10,
-            padding: 30,
-          }}>
+      {showLikeList && (
+        <Modal
+          animationType="slide"
+          transparent
+          visible={showLikeList}
+          presentationStyle="overFullScreen"
+          onDismiss={() => setShowLikeList(false)}>
           <View
             style={{
-              flex: 1,
+              // flex: 1,
               flexDirection: 'column',
+              alignSelf: 'center',
+              // position: 'absolute',
+              marginVertical: '30%',
+              elevation: 5,
+              height: Dimensions.get('window').height * 0.6,
+              width: Dimensions.get('window').width * 0.8,
+              backgroundColor: '#fff',
+              borderRadius: 10,
+              padding: 30,
             }}>
             <Icons
               name="close"
@@ -184,29 +183,31 @@ export const PostCard = ({item, showLanguage, author}: PostCardProps) => {
               color={COLORS.black}
               onPress={() => setShowLikeList(false)}
             />
-            {item.likers.length >= 1 && (
-              <>
-                {Object.values(item.likers).map((item, index) => {
-                  return (
-                    <View
-                      key={item + index}
-                      style={{
-                        marginVertical: 8,
-                      }}>
-                      <Text
+            <ScrollView>
+              {item.likers.length >= 1 && (
+                <>
+                  {Object.values(item.likers).map((item, index) => {
+                    return (
+                      <View
+                        key={item + index}
                         style={{
-                          color: COLORS.black,
+                          marginVertical: 8,
                         }}>
-                        {item}
-                      </Text>
-                    </View>
-                  );
-                })}
-              </>
-            )}
+                        <Text
+                          style={{
+                            color: COLORS.black,
+                          }}>
+                          {item}
+                        </Text>
+                      </View>
+                    );
+                  })}
+                </>
+              )}
+            </ScrollView>
           </View>
-        </ScrollView>
-      </Modal>
+        </Modal>
+      )}
     </View>
   );
 };

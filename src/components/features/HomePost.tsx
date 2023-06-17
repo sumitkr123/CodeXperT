@@ -1,6 +1,6 @@
 import {Image, Text, View} from 'react-native';
 import {SinglePostType} from '../../models/postModel';
-import {PostCard} from './PostCards';
+import {PostCard} from '../ui/PostCard/PostCards';
 import {User} from '../../models/userModel';
 import {Theme} from '../../models/themeTypes';
 

@@ -10,13 +10,13 @@ import {
   TouchableWithoutFeedback,
   View,
 } from 'react-native';
-import {FormInputTypeProps} from '../../models/formInputTypes';
+import {FormInputTypeProps} from '../../../models/formInputTypes';
 import {Text} from 'react-native';
 import Icons from 'react-native-vector-icons/MaterialCommunityIcons';
 import {TextInput} from 'react-native';
 import {useRef, useState} from 'react';
-import {FormComponentStyle} from '../../../assets/styles/components/formComponentsStyle';
-import {COLORS} from '../../utils/colors';
+import {FormComponentStyle} from '../../../../assets/styles/components/formComponentsStyle';
+import {COLORS} from '../../../utils/colors';
 
 export const FormInput = ({
   theme,
@@ -40,11 +40,8 @@ export const FormInput = ({
     Animated.timing(focusAnim, {
       // toValue: focused ? 1 : 0,
       toValue: focused || !!value ? 1 : 0,
-      // I took duration and easing values
-      // from material.io demo page
       duration: 150,
       easing: Easing.bezier(0.4, 0, 0.2, 1),
-      // we'll come back to this later
       useNativeDriver: false,
     }).start();
   }, [focusAnim, focused, value]);

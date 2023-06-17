@@ -5,13 +5,20 @@ import {CommonStyle} from '../../../../assets/styles/commonStyle';
 import {useAppSelector} from '../../../redux/hooks';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {RootStackParamList} from '../../../models/navigationTypes';
-import {ScreenHeader} from '../../../components/other/ScreenHeader';
-import {FlatList, Image, ScrollView, Text, View} from 'react-native';
+import {ScreenHeader} from '../../../components/ui/Header/ScreenHeader';
+import {
+  Dimensions,
+  FlatList,
+  Image,
+  ScrollView,
+  Text,
+  View,
+} from 'react-native';
 import {getUserInfo} from '../../../utils/helper';
 import {UserDataFromToken} from '../../../models/userModel';
 import Icons from 'react-native-vector-icons/MaterialCommunityIcons';
 import {SinglePostType} from '../../../models/postModel';
-import {PostCard} from '../../../components/other/PostCards';
+import {PostCard} from '../../../components/ui/PostCard/PostCards';
 
 export const ProfileScreen = ({
   navigation,
@@ -83,10 +90,12 @@ export const ProfileScreen = ({
         showBackButton={true}
       />
 
-      <View style={CommonStyle(theme).commonContentView}>
-        <View style={CommonStyle(theme).commonContent}>
-          <ScrollView showsVerticalScrollIndicator={false}>
-            <>
+      <ScrollView
+        nestedScrollEnabled={true}
+        showsVerticalScrollIndicator={false}>
+        <View style={CommonStyle(theme).commonContentView}>
+          <View style={CommonStyle(theme).commonContent}>
+            <View>
               {userData && userData[0] && (
                 <View
                   style={{
@@ -140,58 +149,79 @@ export const ProfileScreen = ({
                 </View>
               )}
 
-              <View
-                style={{
-                  flex: 1,
-                  marginTop: '5%',
-                  marginBottom: '2%',
-                }}>
-                <Text
-                  style={{
-                    color: theme.text,
-                    fontWeight: '400',
-                    fontSize: 20,
-                  }}>
-                  My Posts
-                </Text>
-              </View>
-
-              {languageWiseUserPosts?.map(newitem => {
-                return (
+              {languageWiseUserPosts && (
+                <View>
                   <View
-                    key={newitem.title}
                     style={{
-                      marginTop: '8%',
+                      flex: 1,
+                      marginTop: '5%',
+                      marginBottom: '2%',
                     }}>
                     <Text
                       style={{
-                        color: theme.greenBlueHeading,
+                        color: theme.text,
+                        fontWeight: '400',
                         fontSize: 20,
-                        marginBottom: 10,
                       }}>
-                      {newitem.title}
+                      My Posts
                     </Text>
-
-                    <FlatList
-                      contentContainerStyle={{
-                        width: '100%',
-                      }}
-                      horizontal={newitem.horizontal}
-                      showsHorizontalScrollIndicator={false}
-                      data={newitem.data}
-                      renderItem={({item}) => {
-                        return (
-                          <PostCard item={item} author={userData?.[0].email} />
-                        );
-                      }}
-                    />
                   </View>
-                );
-              })}
-            </>
-          </ScrollView>
+
+                  {languageWiseUserPosts?.map(newitem => {
+                    return (
+                      <View
+                        key={newitem.title}
+                        style={{
+                          marginTop: '8%',
+                        }}>
+                        <Text
+                          style={{
+                            color: theme.greenBlueHeading,
+                            fontSize: 20,
+                            marginBottom: 10,
+                          }}>
+                          {newitem.title}
+                        </Text>
+
+                        <FlatList
+                          scrollEnabled={newitem.horizontal ? true : false}
+                          horizontal={newitem.horizontal}
+                          // pagingEnabled={true}
+                          nestedScrollEnabled={true}
+                          showsHorizontalScrollIndicator={false}
+                          data={newitem.data}
+                          renderItem={({item}) => {
+                            return (
+                              <View
+                                style={{
+                                  width: Dimensions.get('window').width * 0.9,
+                                }}>
+                                <PostCard
+                                  item={item}
+                                  author={userData?.[0].email}
+                                />
+                              </View>
+                            );
+                          }}
+                          ItemSeparatorComponent={() => {
+                            return (
+                              <View
+                                style={{
+                                  width: 30,
+                                }}
+                              />
+                            );
+                          }}
+                        />
+                      </View>
+                    );
+                  })}
+                </View>
+              )}
+            </View>
+          </View>
         </View>
-      </View>
+      </ScrollView>
     </SafeAreaView>
   );
 };

@@ -8,7 +8,7 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import {MyCustomSwitch} from './Switch';
+import {MyCustomSwitch} from '../ui/Switch/Switch';
 import Icons from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import {tAppName} from '../../utils/text_strings';

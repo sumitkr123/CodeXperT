@@ -26,7 +26,7 @@ import {View} from 'react-native';
 import {CreateScreen} from '../screens/core/create/CreateScreen';
 import {COLORS} from '../utils/colors';
 import {SettingScreen} from '../screens/core/setting/SettingScreen';
-import {WelcomeScreen} from '../components/welcomePage/WelcomeScreen';
+import {WelcomeScreen} from '../screens/others/welcome/WelcomeScreen';
 import {ProfileScreen} from '../screens/core/profile/ProfileScreen';
 
 const AuthNativeStack = createNativeStackNavigator<RootAuthStackParamList>();

@@ -28,9 +28,9 @@ import {
   tLoginTitle,
   tSignup1,
 } from '../../../utils/text_strings';
-import {AuthFormFooter} from '../../../components/form/AuthFormFooter';
-import {AuthFormHeader} from '../../../components/form/AuthFormHeader';
-import {FormInputsCreator} from '../../../components/form/FormInputsCreator';
+import {AuthFormFooter} from '../../../components/ui/Form/AuthFormFooter';
+import {AuthFormHeader} from '../../../components/ui/Form/AuthFormHeader';
+import {FormInputsCreator} from '../../../components/ui/Form/FormInputsCreator';
 
 export const Login = ({
   navigation,

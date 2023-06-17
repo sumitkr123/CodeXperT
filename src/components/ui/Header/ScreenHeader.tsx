@@ -1,14 +1,13 @@
 import {Text, View} from 'react-native';
 import Icons from 'react-native-vector-icons/MaterialCommunityIcons';
-import {CommonStyle} from '../../../assets/styles/commonStyle';
-import {Theme} from '../../models/themeTypes';
+import {CommonStyle} from '../../../../assets/styles/commonStyle';
+import {Theme} from '../../../models/themeTypes';
 import {BottomTabNavigationProp} from '@react-navigation/bottom-tabs';
 import {
   RootBottomNavParamList,
   RootStackParamList,
-} from '../../models/navigationTypes';
+} from '../../../models/navigationTypes';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
-import {COLORS} from '../../utils/colors';
 
 type ScreenHeaderProps = {
   theme: Theme;

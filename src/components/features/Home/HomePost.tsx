@@ -1,8 +1,8 @@
 import {Image, Text, View} from 'react-native';
-import {SinglePostType} from '../../models/postModel';
-import {PostCard} from '../ui/PostCard/PostCards';
-import {User} from '../../models/userModel';
-import {Theme} from '../../models/themeTypes';
+import {SinglePostType} from '../../../models/postModel';
+import {PostCard} from '../../ui/PostCard/PostCards';
+import {User} from '../../../models/userModel';
+import {Theme} from '../../../models/themeTypes';
 
 type HomePostProps = {
   author: string;
@@ -29,7 +29,7 @@ export const HomePost = ({
           alignItems: 'center',
         }}>
         <Image
-          source={require('../../../assets/images/profile_bg.png')}
+          source={require('../../../../assets/images/profile_bg.png')}
           style={{
             height: 50,
             width: 50,

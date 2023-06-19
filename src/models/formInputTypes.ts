@@ -15,5 +15,5 @@ export type FormInputTypeProps = {
   onBlur: (...event: any[]) => void;
   error?: string;
   value: any;
-  options?: LanguageOptionsTypes;
+  options?: {[key: string]: string};
 };

@@ -56,6 +56,7 @@ export const RegistrationValidationSchema = (
       .required(`**Password can't be empty..!`)
       .min(8, `**Please enter password of at-least 8 characters..!`)
       .matches(passwordRegex, `**Please enter valid password..!`),
+    // gender: yup.string().trim().required(`**Gender can't be empty..!`),
   });
 };
 

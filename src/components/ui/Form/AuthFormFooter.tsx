@@ -36,30 +36,25 @@ export const AuthFormFooter = ({
       </TouchableOpacity>
 
       <TouchableWithoutFeedback onPress={onSecondaryLinkPress}>
-        <View
+        <Text
           style={{
-            flexDirection: 'row',
-            justifyContent: 'center',
+            color: theme.text,
+            fontSize: 20,
+            fontWeight: '500',
+            marginTop: '15%',
+            alignSelf: 'center',
           }}>
+          {secondaryLinkFirstText}{' '}
           <Text
             style={{
-              color: theme.text,
+              color: theme.primary,
               fontSize: 20,
-              fontWeight: '500',
-              marginTop: '15%',
+              fontWeight: '600',
+              textDecorationLine: 'underline',
             }}>
-            {secondaryLinkFirstText}{' '}
-            <Text
-              style={{
-                color: theme.primary,
-                fontSize: 20,
-                fontWeight: '600',
-                textDecorationLine: 'underline',
-              }}>
-              {secondaryLinkSecondText}
-            </Text>
+            {secondaryLinkSecondText}
           </Text>
-        </View>
+        </Text>
       </TouchableWithoutFeedback>
     </>
   );

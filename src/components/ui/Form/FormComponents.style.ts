@@ -1,5 +1,5 @@
 import {StyleSheet} from 'react-native';
-import {Theme} from '../../../src/models/themeTypes';
+import {Theme} from '../../../models/themeTypes';
 
 export const FormComponentStyle = (theme: Theme) =>
   StyleSheet.create({

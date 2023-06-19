@@ -119,6 +119,22 @@ export const LoginFormInputs = [
   },
 ];
 
+export const ProgrammingLanguages: LanguageOptionsTypes = {
+  0: 'C',
+  1: 'C++',
+  2: 'JAVA',
+  3: 'HTML',
+  4: 'React',
+  5: 'React-native',
+  6: 'JavaScript',
+};
+
+export const GenderOptions: {[key: string]: string} = {
+  male: 'Male',
+  female: 'Female',
+  other: 'Other',
+};
+
 export const RegisterFormInputs = [
   {
     id: 1,
@@ -152,17 +168,15 @@ export const RegisterFormInputs = [
     name: 'pass',
     placeholder: tEnterPass,
   },
+  // {
+  //   id: 5,
+  //   type: 'radio',
+  //   label: 'Gender',
+  //   name: 'gender',
+  //   placeholder: 'Chooose your gender..!',
+  //   options: GenderOptions,
+  // },
 ];
-
-export const ProgrammingLanguages: LanguageOptionsTypes = {
-  0: 'C',
-  1: 'C++',
-  2: 'JAVA',
-  3: 'HTML',
-  4: 'React',
-  5: 'React-native',
-  6: 'JavaScript',
-};
 
 export const CreateCodePostFormInputs = [
   {

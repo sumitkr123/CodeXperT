@@ -8,21 +8,21 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import {MyCustomSwitch} from '../ui/Switch/Switch';
+import {MyCustomSwitch} from '../../ui/Switch/Switch';
 import Icons from 'react-native-vector-icons/MaterialCommunityIcons';
 
-import {tAppName} from '../../utils/text_strings';
-import {Theme} from '../../models/themeTypes';
+import {tAppName} from '../../../utils/text_strings';
+import {Theme} from '../../../models/themeTypes';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {Image} from 'react-native';
 import {CompositeNavigationProp, RouteProp} from '@react-navigation/native';
 import {
   RootBottomNavParamList,
   RootStackParamList,
-} from '../../models/navigationTypes';
+} from '../../../models/navigationTypes';
 import {BottomTabNavigationProp} from '@react-navigation/bottom-tabs';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
-import {CommonStyle} from '../../../assets/styles/commonStyle';
+import {CommonStyle} from '../../../../assets/styles/commonStyle';
 
 type MyCustomSettingProps = {
   theme: Theme;
@@ -176,7 +176,7 @@ export const SettingMenus = ({
                 width: Dimensions.get('window').width * 0.6,
               }}>
               <Image
-                source={require('../../../assets/images/bird1.png')}
+                source={require('../../../../assets/images/bird1.png')}
                 style={{
                   flex: 1,
                   width: 'auto',

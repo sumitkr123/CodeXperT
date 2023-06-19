@@ -12,12 +12,12 @@ import {BackHandler} from 'react-native';
 import {tAppName} from '../../../utils/text_strings';
 import {SinglePostType} from '../../../models/postModel';
 import {ScreenHeader} from '../../../components/ui/Header/ScreenHeader';
-import {HomePost} from '../../../components/features/HomePost';
+import {HomePost} from '../../../components/features/Home/HomePost';
 
-export const HomeScreen = ({
-  route,
-  navigation,
-}: BottomTabScreenProps<RootBottomNavParamList, 'Home'>): React.JSX.Element => {
+export const HomeScreen = ({}: BottomTabScreenProps<
+  RootBottomNavParamList,
+  'Home'
+>): React.JSX.Element => {
   const theme = useAppSelector(state => state.theme);
 
   const users = useAppSelector(state => state.users.allUsers);

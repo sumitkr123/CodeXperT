@@ -1,8 +1,10 @@
 import {StyleSheet} from 'react-native';
-import {Theme} from '../../../models/themeTypes';
+import {useAppSelector} from '../../../redux/hooks';
 
-export const FormComponentStyle = (theme: Theme) =>
-  StyleSheet.create({
+export const FormComponentStyle = () => {
+  const theme = useAppSelector(state => state.theme);
+
+  return StyleSheet.create({
     mainInputView: {
       marginTop: '3%',
       marginBottom: '3%',
@@ -28,10 +30,8 @@ export const FormComponentStyle = (theme: Theme) =>
       paddingLeft: '3.5%',
 
       padding: 16,
-      // borderColor: '#B9C4CA',
-      // borderWidth: 1,
-      // borderRadius: 4,
       fontFamily: 'Avenir-Medium',
       fontSize: 16,
     },
   });
+};

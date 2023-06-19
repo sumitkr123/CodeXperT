@@ -175,7 +175,7 @@ export const FormInput = ({
           placeholderTextColor={theme.text}
           onFocus={() => setFocused(true)}
           onEndEditing={() => setFocused(false)}
-          style={FormComponentStyle(theme).inputField}
+          style={FormComponentStyle().inputField}
           onChangeText={value => {
             onChange(value);
             inputRef.current.value = value;
@@ -199,7 +199,7 @@ export const FormInput = ({
           placeholderTextColor={theme.text}
           onFocus={() => setFocused(true)}
           onEndEditing={() => setFocused(false)}
-          style={FormComponentStyle(theme).inputField}
+          style={FormComponentStyle().inputField}
           onChangeText={value => {
             onChange(value);
             inputRef.current.value = value;
@@ -223,7 +223,7 @@ export const FormInput = ({
           placeholderTextColor={theme.text}
           onFocus={() => setFocused(true)}
           onEndEditing={() => setFocused(false)}
-          style={FormComponentStyle(theme).inputField}
+          style={FormComponentStyle().inputField}
           onChangeText={value => {
             onChange(value);
             inputRef.current.value = value;
@@ -326,7 +326,7 @@ export const FormInput = ({
           placeholderTextColor={theme.text}
           onFocus={() => setFocused(true)}
           onEndEditing={() => setFocused(false)}
-          style={FormComponentStyle(theme).inputField}
+          style={FormComponentStyle().inputField}
           onChangeText={value => {
             onChange(value);
             inputRef.current.value = value;
@@ -348,10 +348,10 @@ export const FormInput = ({
         Keyboard.dismiss();
         setFocused(false);
       }}>
-      <View style={[FormComponentStyle(theme).mainInputView]}>
+      <View style={[FormComponentStyle().mainInputView]}>
         <View
           style={[
-            FormComponentStyle(theme).inputView,
+            FormComponentStyle().inputView,
             {
               borderColor: error
                 ? theme.error

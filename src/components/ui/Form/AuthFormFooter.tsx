@@ -1,9 +1,4 @@
-import {
-  Text,
-  TouchableOpacity,
-  TouchableWithoutFeedback,
-  View,
-} from 'react-native';
+import {Text, TouchableOpacity, TouchableWithoutFeedback} from 'react-native';
 import {Theme} from '../../../models/themeTypes';
 import {CommonStyle} from '../../../../assets/styles/commonStyle';
 

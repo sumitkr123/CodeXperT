@@ -33,6 +33,8 @@ export const FormInput = ({
 }: FormInputTypeProps) => {
   const [focused, setFocused] = useState<boolean>(false);
 
+  const [visiblePass, setVisiblePass] = useState<boolean>(true);
+
   const [selectedRadio, setSelectedRadio] = useState<any>('');
 
   const inputRef = useRef<any>('');
@@ -194,12 +196,12 @@ export const FormInput = ({
       fieldblock = (
         <TextInput
           ref={inputRef}
-          secureTextEntry={true}
+          secureTextEntry={visiblePass}
           placeholder={focused ? placeholder : ''}
           placeholderTextColor={theme.text}
           onFocus={() => setFocused(true)}
           onEndEditing={() => setFocused(false)}
-          style={FormComponentStyle().inputField}
+          style={[FormComponentStyle().inputField, {width: '84%'}]}
           onChangeText={value => {
             onChange(value);
             inputRef.current.value = value;
@@ -421,6 +423,26 @@ export const FormInput = ({
                 {label}
               </Text>
             </Animated.View>
+          )}
+
+          {type === 'password' && (
+            <Icons
+              name={'eye'}
+              color={
+                error
+                  ? theme.error
+                  : focused && inputRef.current.value
+                  ? theme.success
+                  : focused
+                  ? theme.primary
+                  : theme.iconColor
+              }
+              size={25}
+              style={{
+                width: '8%',
+              }}
+              onPress={() => setVisiblePass(!visiblePass)}
+            />
           )}
         </View>
         {error && <Text style={{color: 'red', fontSize: 16}}>{error}</Text>}

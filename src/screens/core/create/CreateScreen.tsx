@@ -1,12 +1,6 @@
 import React from 'react';
 
-import {
-  BackHandler,
-  SafeAreaView,
-  ScrollView,
-  Text,
-  TouchableOpacity,
-} from 'react-native';
+import {BackHandler, ScrollView, Text, TouchableOpacity} from 'react-native';
 import {CommonStyle} from '../../../../assets/styles/commonStyle';
 import {useAppDispatch, useAppSelector} from '../../../redux/hooks';
 import {View} from 'react-native';
@@ -27,6 +21,7 @@ import {SinglePostType} from '../../../models/postModel';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {ScreenHeader} from '../../../components/ui/Header/ScreenHeader';
 import {FormInputsCreator} from '../../../components/ui/Form/FormInputsCreator';
+import {SafeAreaView} from 'react-native-safe-area-context';
 
 const SeeUserInfo = async () => {
   const currentUserData = await AsyncStorage.getItem('auth_token');

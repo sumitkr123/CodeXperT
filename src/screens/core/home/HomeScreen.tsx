@@ -1,6 +1,6 @@
 import React from 'react';
 
-import {Alert, SafeAreaView, ScrollView, Text, View} from 'react-native';
+import {Alert, ScrollView, Text, View} from 'react-native';
 
 import {CommonStyle} from '../../../../assets/styles/commonStyle';
 
@@ -13,6 +13,7 @@ import {tAppName} from '../../../utils/text_strings';
 import {SinglePostType} from '../../../models/postModel';
 import {ScreenHeader} from '../../../components/ui/Header/ScreenHeader';
 import {HomePost} from '../../../components/features/Home/HomePost';
+import {SafeAreaView} from 'react-native-safe-area-context';
 
 export const HomeScreen = ({}: BottomTabScreenProps<
   RootBottomNavParamList,

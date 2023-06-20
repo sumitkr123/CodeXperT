@@ -17,7 +17,6 @@ import {NativeStackScreenProps} from '@react-navigation/native-stack';
 
 import {RootAuthStackParamList} from '../../../models/navigationTypes';
 import {addUser} from '../../../redux/ducks/users_slice';
-import {SafeAreaView} from 'react-native-safe-area-context';
 import {
   tAlreadyHaveAc,
   tLogin1,
@@ -27,6 +26,7 @@ import {
 import {AuthFormFooter} from '../../../components/ui/Form/AuthFormFooter';
 import {AuthFormHeader} from '../../../components/ui/Form/AuthFormHeader';
 import {FormInputsCreator} from '../../../components/ui/Form/FormInputsCreator';
+import {SafeAreaView} from 'react-native-safe-area-context';
 
 export const Register = ({
   navigation,

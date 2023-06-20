@@ -1,8 +1,7 @@
 import React, {useState} from 'react';
 
-import {SafeAreaView} from 'react-native';
+import {View} from 'react-native';
 import {useAppDispatch, useAppSelector} from '../../../redux/hooks';
-import {CommonStyle} from '../../../../assets/styles/commonStyle';
 import {CompositeScreenProps} from '@react-navigation/native';
 import {
   RootBottomNavParamList,
@@ -14,6 +13,8 @@ import {BottomTabScreenProps} from '@react-navigation/bottom-tabs';
 import {SettingMenus} from '../../../components/features/Setting/SettingMenus';
 import {changeTheme} from '../../../redux/ducks/theme_slice';
 import {ScreenHeader} from '../../../components/ui/Header/ScreenHeader';
+import {CommonStyle} from '../../../../assets/styles/commonStyle';
+import {SafeAreaView} from 'react-native-safe-area-context';
 
 export const SettingScreen = ({
   route,

@@ -21,7 +21,6 @@ import {
 } from '../../../models/navigationTypes';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {CompositeScreenProps} from '@react-navigation/native';
-import {SafeAreaView} from 'react-native-safe-area-context';
 import {
   tDontHaveAc,
   tLoginSubTitle,
@@ -31,6 +30,7 @@ import {
 import {AuthFormFooter} from '../../../components/ui/Form/AuthFormFooter';
 import {AuthFormHeader} from '../../../components/ui/Form/AuthFormHeader';
 import {FormInputsCreator} from '../../../components/ui/Form/FormInputsCreator';
+import {SafeAreaView} from 'react-native-safe-area-context';
 
 export const Login = ({
   navigation,

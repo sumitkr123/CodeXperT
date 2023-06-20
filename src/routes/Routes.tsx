@@ -117,22 +117,22 @@ const BottomNavBar =
     );
   };
 
-const Stack = createNativeStackNavigator<RootStackParamList>();
+const NativeStack = createNativeStackNavigator<RootStackParamList>();
 
 export const Routes = (): React.JSX.Element => {
   return (
     <NavigationContainer>
-      <Stack.Navigator
+      <NativeStack.Navigator
         screenOptions={{
           animation: 'none',
           orientation: 'portrait',
           headerShown: false,
         }}>
-        <Stack.Screen name="Welcome" component={WelcomeScreen} />
-        <Stack.Screen name="Auth" component={Auth} />
-        <Stack.Screen name="BottomNavBar" component={BottomNavBar} />
-        <Stack.Screen name="Profile" component={ProfileScreen} />
-      </Stack.Navigator>
+        <NativeStack.Screen name="Welcome" component={WelcomeScreen} />
+        <NativeStack.Screen name="Auth" component={Auth} />
+        <NativeStack.Screen name="BottomNavBar" component={BottomNavBar} />
+        <NativeStack.Screen name="Profile" component={ProfileScreen} />
+      </NativeStack.Navigator>
     </NavigationContainer>
   );
 };

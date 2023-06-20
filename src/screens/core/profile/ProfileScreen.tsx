@@ -1,6 +1,5 @@
 import React, {useMemo, useState} from 'react';
 
-import {SafeAreaView} from 'react-native-safe-area-context';
 import {CommonStyle} from '../../../../assets/styles/commonStyle';
 import {useAppSelector} from '../../../redux/hooks';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
@@ -19,6 +18,7 @@ import {UserDataFromToken} from '../../../models/userModel';
 import Icons from 'react-native-vector-icons/MaterialCommunityIcons';
 import {SinglePostType} from '../../../models/postModel';
 import {PostCard} from '../../../components/ui/PostCard/PostCards';
+import {SafeAreaView} from 'react-native-safe-area-context';
 
 export const ProfileScreen = ({
   navigation,

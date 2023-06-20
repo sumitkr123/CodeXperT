@@ -10,12 +10,12 @@ import {
   View,
 } from 'react-native';
 import {useAppSelector} from '../../../redux/hooks';
-import {CommonStyle} from '../../../../assets/styles/commonStyle';
 import {RootStackParamList} from '../../../models/navigationTypes';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {WelcomeStyle} from '../../../../assets/styles/screens/welcomeScreenStyle';
-import {SafeAreaView} from 'react-native-safe-area-context';
 import {tWelcomeTitle} from '../../../utils/text_strings';
+import {SafeAreaView} from 'react-native-safe-area-context';
+import {CommonStyle} from '../../../../assets/styles/commonStyle';
 
 export const WelcomeScreen = ({
   navigation,

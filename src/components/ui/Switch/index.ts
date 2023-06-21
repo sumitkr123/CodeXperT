@@ -1,0 +1,1 @@
+export {MyCustomSwitch} from './Switch';

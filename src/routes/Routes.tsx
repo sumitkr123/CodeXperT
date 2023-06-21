@@ -11,22 +11,23 @@ import {
   RootStackParamList,
 } from '../models/navigationTypes';
 
-import {Login} from '../screens/authentication/login/LoginScreen';
-import {Register} from '../screens/authentication/register/RegisterScreen';
 import {
   BottomTabScreenProps,
   createBottomTabNavigator,
 } from '@react-navigation/bottom-tabs';
 import {useAppSelector} from '../redux/hooks';
-import {HomeScreen} from '../screens/core/home/HomeScreen';
 
-import {CreateScreen} from '../screens/core/create/CreateScreen';
-import {SettingScreen} from '../screens/core/setting/SettingScreen';
-import {WelcomeScreen} from '../screens/others/welcome/WelcomeScreen';
-import {ProfileScreen} from '../screens/core/profile/ProfileScreen';
-import {CustomStatusBar} from '../components/ui/StatusBar/StatusBar';
 import {SafeAreaProvider} from 'react-native-safe-area-context';
-import {CustomBottomTabBar} from '../components/ui/BottomBar/CustomBottomBar';
+import {
+  CreateScreen,
+  HomeScreen,
+  Login,
+  ProfileScreen,
+  Register,
+  SettingScreen,
+  WelcomeScreen,
+} from '../screens';
+import {CustomBottomTabBar, CustomStatusBar} from '../components';
 
 const AuthNativeStack = createNativeStackNavigator<RootAuthStackParamList>();
 
@@ -72,6 +73,7 @@ export const Routes = (): React.JSX.Element => {
   return (
     <SafeAreaProvider>
       <CustomStatusBar backgroundColor={theme.statusBarColor} />
+
       <SafeAreaProvider>
         <NavigationContainer>
           <NativeStack.Navigator

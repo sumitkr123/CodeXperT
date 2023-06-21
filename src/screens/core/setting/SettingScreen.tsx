@@ -9,11 +9,10 @@ import {
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {BottomTabScreenProps} from '@react-navigation/bottom-tabs';
 
-import {SettingMenus} from '../../../components/features/Setting/SettingMenus';
 import {changeTheme} from '../../../redux/ducks/theme_slice';
-import {ScreenHeader} from '../../../components/ui/Header/ScreenHeader';
 import {CommonStyle} from '../../../../assets/styles/commonStyle';
 import {SafeAreaView} from 'react-native-safe-area-context';
+import {ScreenHeader, SettingMenus} from '../../../components';
 
 export const SettingScreen = ({
   route,

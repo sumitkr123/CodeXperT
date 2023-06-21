@@ -14,11 +14,10 @@ import {CompositeScreenProps, useFocusEffect} from '@react-navigation/native';
 import {BackHandler} from 'react-native';
 import {tAppName} from '../../../utils/text_strings';
 import {SinglePostType} from '../../../models/postModel';
-import {ScreenHeader} from '../../../components/ui/Header/ScreenHeader';
-import {HomePost} from '../../../components/features/Home/HomePost';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {Platform} from 'react-native';
+import {HomePost, ScreenHeader} from '../../../components';
 
 export const HomeScreen = ({
   navigation,

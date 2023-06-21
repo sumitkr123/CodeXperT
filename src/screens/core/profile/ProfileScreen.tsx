@@ -4,7 +4,6 @@ import {CommonStyle} from '../../../../assets/styles/commonStyle';
 import {useAppSelector} from '../../../redux/hooks';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {RootStackParamList} from '../../../models/navigationTypes';
-import {ScreenHeader} from '../../../components/ui/Header/ScreenHeader';
 import {
   Dimensions,
   FlatList,
@@ -17,8 +16,8 @@ import {getUserInfo} from '../../../utils/helper';
 import {UserData} from '../../../models/userModel';
 import Icons from 'react-native-vector-icons/MaterialCommunityIcons';
 import {SinglePostType} from '../../../models/postModel';
-import {PostCard} from '../../../components/ui/PostCard/PostCards';
 import {SafeAreaView} from 'react-native-safe-area-context';
+import {PostCard, ScreenHeader} from '../../../components';
 
 export const ProfileScreen = ({
   route,

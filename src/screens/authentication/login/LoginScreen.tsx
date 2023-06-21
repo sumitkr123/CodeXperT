@@ -27,10 +27,13 @@ import {
   tLoginTitle,
   tSignup1,
 } from '../../../utils/text_strings';
-import {AuthFormFooter} from '../../../components/ui/Form/AuthFormFooter';
-import {AuthFormHeader} from '../../../components/ui/Form/AuthFormHeader';
-import {FormInputsCreator} from '../../../components/ui/Form/FormInputsCreator';
+
 import {SafeAreaView} from 'react-native-safe-area-context';
+import {
+  AuthFormFooter,
+  AuthFormHeader,
+  FormInputsCreator,
+} from '../../../components';
 
 export const Login = ({
   navigation,

@@ -5,19 +5,26 @@ import {Alert, ScrollView, Text, View} from 'react-native';
 import {CommonStyle} from '../../../../assets/styles/commonStyle';
 
 import {useAppSelector} from '../../../redux/hooks';
-import {RootBottomNavParamList} from '../../../models/navigationTypes';
+import {
+  RootBottomNavParamList,
+  RootStackParamList,
+} from '../../../models/navigationTypes';
 import {BottomTabScreenProps} from '@react-navigation/bottom-tabs';
-import {useFocusEffect} from '@react-navigation/native';
+import {CompositeScreenProps, useFocusEffect} from '@react-navigation/native';
 import {BackHandler} from 'react-native';
 import {tAppName} from '../../../utils/text_strings';
 import {SinglePostType} from '../../../models/postModel';
 import {ScreenHeader} from '../../../components/ui/Header/ScreenHeader';
 import {HomePost} from '../../../components/features/Home/HomePost';
 import {SafeAreaView} from 'react-native-safe-area-context';
+import {NativeStackScreenProps} from '@react-navigation/native-stack';
+import {Platform} from 'react-native';
 
-export const HomeScreen = ({}: BottomTabScreenProps<
-  RootBottomNavParamList,
-  'Home'
+export const HomeScreen = ({
+  navigation,
+}: CompositeScreenProps<
+  BottomTabScreenProps<RootBottomNavParamList, 'Home'>,
+  NativeStackScreenProps<RootStackParamList, 'BottomNavBar'>
 >): React.JSX.Element => {
   const theme = useAppSelector(state => state.theme);
 
@@ -25,32 +32,34 @@ export const HomeScreen = ({}: BottomTabScreenProps<
 
   const allPosts = useAppSelector(state => state.posts.allPosts);
 
-  useFocusEffect(
-    React.useCallback(() => {
-      const onBackPress = () => {
-        Alert.alert(tAppName, 'Do you really want to exit the app..?', [
-          {
-            text: 'YES',
-            onPress: () => {
-              BackHandler.exitApp();
-            },
-          },
-          {text: 'NO', onPress: () => null},
-        ]);
-        // Return true to stop default back navigaton
-        // Return false to keep default back navigaton
-        return true;
-      };
+  Platform.OS === 'ios'
+    ? null
+    : useFocusEffect(
+        React.useCallback(() => {
+          const onBackPress = () => {
+            Alert.alert(tAppName, 'Do you really want to exit the app..?', [
+              {
+                text: 'YES',
+                onPress: () => {
+                  BackHandler.exitApp();
+                },
+              },
+              {text: 'NO', onPress: () => null},
+            ]);
+            // Return true to stop default back navigaton
+            // Return false to keep default back navigaton
+            return true;
+          };
 
-      // Add Event Listener for hardwareBackPress
-      BackHandler.addEventListener('hardwareBackPress', onBackPress);
+          // Add Event Listener for hardwareBackPress
+          BackHandler.addEventListener('hardwareBackPress', onBackPress);
 
-      return () => {
-        // Once the Screen gets blur Remove Event Listener
-        BackHandler.removeEventListener('hardwareBackPress', onBackPress);
-      };
-    }, []),
-  );
+          return () => {
+            // Once the Screen gets blur Remove Event Listener
+            BackHandler.removeEventListener('hardwareBackPress', onBackPress);
+          };
+        }, []),
+      );
 
   return (
     <SafeAreaView style={CommonStyle(theme).commonContainer}>
@@ -93,6 +102,7 @@ export const HomeScreen = ({}: BottomTabScreenProps<
                                 );
                               }}
                               newitem={newitem}
+                              navigation={navigation}
                             />
                           );
                         },

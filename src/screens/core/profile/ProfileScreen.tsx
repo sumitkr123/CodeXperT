@@ -14,13 +14,14 @@ import {
   View,
 } from 'react-native';
 import {getUserInfo} from '../../../utils/helper';
-import {UserDataFromToken} from '../../../models/userModel';
+import {UserData} from '../../../models/userModel';
 import Icons from 'react-native-vector-icons/MaterialCommunityIcons';
 import {SinglePostType} from '../../../models/postModel';
 import {PostCard} from '../../../components/ui/PostCard/PostCards';
 import {SafeAreaView} from 'react-native-safe-area-context';
 
 export const ProfileScreen = ({
+  route,
   navigation,
 }: NativeStackScreenProps<
   RootStackParamList,
@@ -30,12 +31,14 @@ export const ProfileScreen = ({
 
   const allPosts = useAppSelector(state => state.posts.allPosts);
 
-  const [userData, setUserData] = useState<[UserDataFromToken]>();
+  const [userData, setUserData] = useState<[UserData]>();
 
   const [userPostsData, setUserPostsData] = useState<SinglePostType[]>([]);
 
   useMemo(async () => {
-    let getData: [UserDataFromToken] = await getUserInfo();
+    let getData = route.params?.authorData
+      ? [route.params.authorData]
+      : await getUserInfo();
 
     let getPostsData = allPosts[getData[0].email];
 
@@ -86,7 +89,7 @@ export const ProfileScreen = ({
         navigation={navigation}
         headerTitle={'Profile'}
         headerTitleAlign="center"
-        leftIcon={'cog'}
+        leftIcon={route.params?.isVisitorVisiting ? 'chevron-left' : 'cog'}
         showBackButton={true}
       />
 
@@ -134,18 +137,20 @@ export const ProfileScreen = ({
                     </Text>
                   </View>
 
-                  <Icons
-                    name="pencil"
-                    size={25}
-                    color={theme.blackWhiteIconColor}
-                    style={{
-                      position: 'absolute',
-                      right: 0,
-                      textDecorationStyle: 'solid',
-                      textDecorationColor: theme.text,
-                      textDecorationLine: 'underline',
-                    }}
-                  />
+                  {route.params?.isVisitorVisiting ? null : (
+                    <Icons
+                      name="pencil"
+                      size={25}
+                      color={theme.blackWhiteIconColor}
+                      style={{
+                        position: 'absolute',
+                        right: 0,
+                        textDecorationStyle: 'solid',
+                        textDecorationColor: theme.text,
+                        textDecorationLine: 'underline',
+                      }}
+                    />
+                  )}
                 </View>
               )}
 

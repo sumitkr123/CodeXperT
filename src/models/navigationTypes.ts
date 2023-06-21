@@ -1,8 +1,10 @@
+import {User} from './userModel';
+
 export type RootStackParamList = {
   Welcome: undefined;
   Auth: undefined;
   BottomNavBar: undefined;
-  Profile: undefined;
+  Profile: undefined | {isVisitorVisiting?: boolean; authorData?: User};
 };
 
 export type RootAuthStackParamList = {

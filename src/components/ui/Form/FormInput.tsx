@@ -225,7 +225,13 @@ export const FormInput = ({
           placeholderTextColor={theme.text}
           onFocus={() => setFocused(true)}
           onEndEditing={() => setFocused(false)}
-          style={FormComponentStyle().inputField}
+          style={[
+            FormComponentStyle().inputField,
+            {
+              height: 52,
+              paddingTop: 20,
+            },
+          ]}
           onChangeText={value => {
             onChange(value);
             inputRef.current.value = value;
@@ -405,7 +411,7 @@ export const FormInput = ({
 
                 top: focusAnim.interpolate({
                   inputRange: [0, 1],
-                  outputRange: [24, -10],
+                  outputRange: [22, -10],
                 }),
               }}>
               <Text

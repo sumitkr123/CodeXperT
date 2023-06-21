@@ -7,6 +7,7 @@ export interface Theme {
   blackWhiteIconColor: string;
   iconColor: string;
   headerBarColor: string;
+  statusBarColor: string;
   textInputBorderColor: string;
   greenBlueHeading: string
   success: string;

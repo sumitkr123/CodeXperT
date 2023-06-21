@@ -1,4 +1,4 @@
-import {Text, View} from 'react-native';
+import {Platform, Text, View} from 'react-native';
 import Icons from 'react-native-vector-icons/MaterialCommunityIcons';
 import {CommonStyle} from '../../../../assets/styles/commonStyle';
 import {Theme} from '../../../models/themeTypes';
@@ -45,7 +45,12 @@ export const ScreenHeader = ({
   leftIconOnPress,
 }: ScreenHeaderProps) => {
   return (
-    <View style={CommonStyle(theme).commonHeaderBar}>
+    <View
+      style={
+        Platform.OS === 'android'
+          ? CommonStyle(theme).commonHeaderBarAndroid
+          : CommonStyle(theme).commonHeaderBarIOS
+      }>
       <View style={CommonStyle(theme).commonHeaderBarContent}>
         {showBackButton !== false &&
           (headerTitleAlign === 'center' && leftIcon ? (

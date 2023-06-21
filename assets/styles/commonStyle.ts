@@ -8,10 +8,18 @@ export const CommonStyle = (theme?: Theme) =>
       backgroundColor: theme?.background,
       width: Dimensions.get('window').width,
     },
-    commonHeaderBar: {
+    commonHeaderBarAndroid: {
       backgroundColor: theme?.headerBarColor,
-      elevation: 8,
+      elevation: 10,
       paddingHorizontal: '5%',
+    },
+    commonHeaderBarIOS: {
+      backgroundColor: theme?.headerBarColor,
+      paddingHorizontal: '5%',
+      shadowColor: 'grey',
+      shadowOffset: {width: 0, height: 2},
+      shadowOpacity: 0.6,
+      shadowRadius: 2,
     },
     commonHeaderBarContent: {
       height: Dimensions.get('window').height * 0.07,

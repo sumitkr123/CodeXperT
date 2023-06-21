@@ -11,7 +11,7 @@ export type UsersType = {
   allUsers: User[];
 };
 
-export type UserDataFromToken = {
+export type UserData = {
   [key: string]: any;
   id: number;
   name: string;

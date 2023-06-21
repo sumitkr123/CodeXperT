@@ -1,6 +1,5 @@
 import React, {useState} from 'react';
 
-import {View} from 'react-native';
 import {useAppDispatch, useAppSelector} from '../../../redux/hooks';
 import {CompositeScreenProps} from '@react-navigation/native';
 import {

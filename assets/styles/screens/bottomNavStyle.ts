@@ -1,40 +1,34 @@
 import {Dimensions, StyleSheet} from 'react-native';
-import {Theme} from '../../../src/models/themeTypes';
 import {COLORS} from '../../../src/utils/colors';
 
 export const BottomNavStyle = (
-  theme: Theme,
   focused?: boolean,
-  color?: string,
 ) =>
   StyleSheet.create({
     barStyle: {
-      backgroundColor: COLORS.white,
       borderRadius: 60,
       borderWidth: 3,
-      borderColor: theme.primary,
+      borderColor: COLORS.primary,
       borderTopWidth: 3,
-      borderTopColor: theme.primary,
+      borderTopColor: COLORS.primary,
+      width: Dimensions.get('window').width * 0.9,
       height: Dimensions.get('window').height * 0.08,
       position: 'absolute',
       overflow: 'hidden',
       margin: 20,
-      justifyContent: 'center',
-      elevation: 0,
-    },
-    addButton: {
-      flex: 1,
-      alignItems: 'center',
-      justifyContent: 'center',
+      justifyContent: 'space-evenly',
+      flexDirection: 'row',
+      bottom: 15,
+      backgroundColor: COLORS.white,
     },
     addView: {
       alignItems: 'center',
       justifyContent: 'center',
-      backgroundColor: focused === true ? color : COLORS.white,
+      backgroundColor: focused === true ? COLORS.primary : COLORS.white,
       width: 45,
       height: 45,
       borderRadius: 60,
       borderWidth: 2,
-      borderColor: theme.primary,
+      borderColor: COLORS.primary,
     },
   });

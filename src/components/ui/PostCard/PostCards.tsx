@@ -5,7 +5,7 @@ import Icons from 'react-native-vector-icons/MaterialCommunityIcons';
 import {useMemo, useState} from 'react';
 import {useAppDispatch, useAppSelector} from '../../../redux/hooks';
 import {addLikePost, removeLikePost} from '../../../redux/ducks/posts_slice';
-import {UserDataFromToken} from '../../../models/userModel';
+import {UserData} from '../../../models/userModel';
 import {getUserInfo} from '../../../utils/helper';
 
 type PostCardProps = {
@@ -24,13 +24,13 @@ export const PostCard = ({item, showLanguage, author}: PostCardProps) => {
   const dispatch = useAppDispatch();
 
   useMemo(async () => {
-    let newData: [UserDataFromToken] = await getUserInfo();
+    let newData: [UserData] = await getUserInfo();
 
     setLiked(item.likers.includes(newData[0].email));
   }, [item]);
 
   useMemo(async () => {
-    let getData: [UserDataFromToken] = await getUserInfo();
+    let getData: [UserData] = await getUserInfo();
 
     if (liked === true) {
       let newItem = {...item};
@@ -132,25 +132,35 @@ export const PostCard = ({item, showLanguage, author}: PostCardProps) => {
 
       <View
         style={{
+          flex: 1,
           flexDirection: 'column',
           marginTop: '3%',
         }}>
-        <Icons
-          name={liked ? 'heart' : 'heart-outline'}
-          size={25}
-          color={
-            liked ? COLORS.red : theme.isDark ? COLORS.white : COLORS.black
-          }
-          onPress={() => {
-            setLiked(liked === true ? false : true);
-          }}
-        />
-        <Text style={{color: theme.text}}>{item.likes}</Text>
+        <View
+          style={{
+            flex: 1,
+            width: '8%',
+            flexDirection: 'column',
+            alignItems: 'center',
+          }}>
+          <Icons
+            name={liked ? 'heart' : 'heart-outline'}
+            size={30}
+            color={
+              liked ? COLORS.red : theme.isDark ? COLORS.white : COLORS.black
+            }
+            onPress={() => {
+              setLiked(liked === true ? false : true);
+            }}
+          />
+          <Text style={{color: theme.text, fontSize: 14}}>{item.likes}</Text>
+        </View>
         <Text
           onPress={() => setShowLikeList(true)}
           style={{
             color: theme.isDark ? COLORS.green : COLORS.blue,
             textDecorationLine: 'underline',
+            width: '25%',
           }}>
           View All Likes
         </Text>

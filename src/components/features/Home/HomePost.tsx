@@ -3,12 +3,31 @@ import {SinglePostType} from '../../../models/postModel';
 import {PostCard} from '../../ui/PostCard/PostCards';
 import {User} from '../../../models/userModel';
 import {Theme} from '../../../models/themeTypes';
+import {CompositeNavigationProp} from '@react-navigation/native';
+import {BottomTabNavigationProp} from '@react-navigation/bottom-tabs';
+import {
+  RootBottomNavParamList,
+  RootStackParamList,
+} from '../../../models/navigationTypes';
+import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 
 type HomePostProps = {
   author: string;
   authorData: () => User | undefined;
   theme: Theme;
   newitem: SinglePostType;
+  navigation: CompositeNavigationProp<
+    BottomTabNavigationProp<
+      RootBottomNavParamList,
+      keyof RootBottomNavParamList,
+      undefined
+    >,
+    NativeStackNavigationProp<
+      RootStackParamList,
+      keyof RootStackParamList,
+      undefined
+    >
+  >;
 };
 
 export const HomePost = ({
@@ -16,6 +35,7 @@ export const HomePost = ({
   authorData,
   theme,
   newitem,
+  navigation,
 }: HomePostProps) => {
   return (
     <View
@@ -27,6 +47,12 @@ export const HomePost = ({
         style={{
           flexDirection: 'row',
           alignItems: 'center',
+        }}
+        onTouchEnd={() => {
+          navigation.navigate('Profile', {
+            isVisitorVisiting: true,
+            authorData: authorData(),
+          });
         }}>
         <Image
           source={require('../../../../assets/images/profile_bg.png')}

@@ -3,6 +3,7 @@ import {
   Alert,
   BackHandler,
   Dimensions,
+  Platform,
   SectionList,
   Text,
   TouchableOpacity,
@@ -59,7 +60,7 @@ export const SettingMenus = ({
   toggleSwitch,
   navigation,
 }: MyCustomSettingProps): React.JSX.Element => {
-  const SettingMenusList: SettingList = [
+  const SettingMenusListAndroid: SettingList = [
     {
       id: 1,
       title: 'ACCOUNT',
@@ -154,6 +155,86 @@ export const SettingMenus = ({
     },
   ];
 
+  const SettingMenusListIOS: SettingList = [
+    {
+      id: 1,
+      title: 'ACCOUNT',
+      data: [
+        {
+          icon: 'account-circle',
+          title: 'My account',
+          onPress: () => {
+            navigation.navigate('Profile');
+          },
+        },
+      ],
+    },
+    {
+      id: 2,
+      title: 'ASK US',
+      data: [
+        {
+          icon: 'comment-text-multiple',
+          title: 'FAQs',
+          onPress: () => {},
+        },
+        {
+          icon: 'email',
+          title: 'Feedback',
+          onPress: () => {},
+        },
+      ],
+    },
+    {
+      id: 3,
+      title: 'COMMUNITY',
+      data: [
+        {
+          icon: 'information',
+          title: 'Rate us',
+          onPress: () => {},
+        },
+        {
+          icon: 'share-variant',
+          title: 'Invite a friend',
+          onPress: () => {},
+        },
+
+        {
+          icon: 'eye',
+          title: 'Privacy Policy',
+          onPress: () => {},
+        },
+      ],
+    },
+    {
+      id: 4,
+      title: 'OTHER SETTINGS',
+      data: [
+        {
+          icon: 'theme-light-dark',
+          title: 'Change theme',
+        },
+        {
+          icon: 'logout',
+          title: 'Logout',
+          onPress: () => {
+            Alert.alert(tAppName, 'Are you sure? you want to log-out..!', [
+              {
+                text: 'YES',
+                onPress: async () => {
+                  await AsyncStorage.removeItem('auth_token');
+                  navigation.replace('Auth');
+                },
+              },
+              {text: 'NO', onPress: () => null},
+            ]);
+          },
+        },
+      ],
+    },
+  ];
+
   return (
     <SectionList
       contentContainerStyle={{
@@ -203,7 +284,11 @@ export const SettingMenus = ({
           </View>
         </View>
       }
-      sections={[...SettingMenusList]}
+      sections={[
+        ...(Platform.OS === 'ios'
+          ? SettingMenusListIOS
+          : SettingMenusListAndroid),
+      ]}
       keyExtractor={(item, index) => item.title + index}
       renderItem={({item, index}) => {
         return item.title !== 'Change theme' ? (

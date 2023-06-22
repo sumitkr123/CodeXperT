@@ -1,9 +1,7 @@
 import {Dimensions, StyleSheet} from 'react-native';
-import {COLORS} from '../../../src/utils/colors';
+import {COLORS} from '../../../utils/colors';
 
-export const BottomNavStyle = (
-  focused?: boolean,
-) =>
+export const BottomNavStyle = (focused?: boolean) =>
   StyleSheet.create({
     barStyle: {
       borderRadius: 60,
@@ -30,5 +28,15 @@ export const BottomNavStyle = (
       borderRadius: 60,
       borderWidth: 2,
       borderColor: COLORS.primary,
+    },
+    mainViewButton: {
+      flex: 1,
+      justifyContent: 'center',
+      alignItems: 'center',
+    },
+    innerViewButton: {
+      flex: 1,
+      justifyContent: 'center',
+      alignItems: 'center',
     },
   });

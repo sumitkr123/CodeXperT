@@ -1,6 +1,6 @@
 import {Text, TouchableOpacity, TouchableWithoutFeedback} from 'react-native';
 import {Theme} from '../../../models/themeTypes';
-import {CommonStyle} from '../../../../assets/styles/commonStyle';
+import {FormComponentStyle} from './FormComponents.style';
 
 type AuthFormFooterProps = {
   theme: Theme;
@@ -23,30 +23,17 @@ export const AuthFormFooter = ({
     <>
       <TouchableOpacity
         activeOpacity={0.78}
-        style={CommonStyle(theme).primaryButton}
+        style={FormComponentStyle(theme).formPrimaryButton}
         onPress={onPrimaryButtonPress}>
-        <Text style={CommonStyle(theme).primaryButtonText}>
+        <Text style={FormComponentStyle(theme).formPrimaryButtonText}>
           {primaryButtonText.toUpperCase()}
         </Text>
       </TouchableOpacity>
 
       <TouchableWithoutFeedback onPress={onSecondaryLinkPress}>
-        <Text
-          style={{
-            color: theme.text,
-            fontSize: 20,
-            fontWeight: '500',
-            marginTop: '15%',
-            alignSelf: 'center',
-          }}>
+        <Text style={FormComponentStyle(theme).secondaryLinkFirstText}>
           {secondaryLinkFirstText}{' '}
-          <Text
-            style={{
-              color: theme.primary,
-              fontSize: 20,
-              fontWeight: '600',
-              textDecorationLine: 'underline',
-            }}>
+          <Text style={FormComponentStyle(theme).secondaryLinkSecondText}>
             {secondaryLinkSecondText}
           </Text>
         </Text>

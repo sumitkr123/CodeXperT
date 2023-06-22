@@ -1,9 +1,9 @@
 import React from 'react';
 import {View, Pressable} from 'react-native';
-import {BottomNavStyle} from '../../../../assets/styles/screens/bottomNavStyle';
 import {COLORS} from '../../../utils/colors';
 import Icons from 'react-native-vector-icons/MaterialCommunityIcons';
 import {BottomTabBarProps} from '@react-navigation/bottom-tabs';
+import {BottomNavStyle} from './BottomNav.style';
 
 export const CustomBottomTabBar = ({
   state,
@@ -11,7 +11,7 @@ export const CustomBottomTabBar = ({
   navigation,
 }: BottomTabBarProps) => {
   return (
-    <View style={[BottomNavStyle().barStyle]}>
+    <View style={BottomNavStyle().barStyle}>
       {state.routes.map((route: any, index: number) => {
         const {options} = descriptors[route.key];
         const label =
@@ -36,22 +36,9 @@ export const CustomBottomTabBar = ({
         };
 
         return (
-          <View
-            key={index}
-            style={[
-              {
-                flex: 1,
-                justifyContent: 'center',
-                alignItems: 'center',
-              },
-            ]}>
+          <View key={index} style={BottomNavStyle().mainViewButton}>
             <Pressable onPress={onPress}>
-              <View
-                style={{
-                  flex: 1,
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                }}>
+              <View style={BottomNavStyle().innerViewButton}>
                 <NavigationIcon route={label} isFocused={isFocused} />
               </View>
             </Pressable>
